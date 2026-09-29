@@ -291,6 +291,15 @@ document.addEventListener("DOMContentLoaded", () => {
         openBookingModal(id);
       });
     });
+
+    // Interactive card spotlight tracking
+    container.querySelectorAll(".vehicle-card").forEach(card => {
+      card.addEventListener("mousemove", (e) => {
+        const rect = card.getBoundingClientRect();
+        card.style.setProperty("--card-mouse-x", `${e.clientX - rect.left}px`);
+        card.style.setProperty("--card-mouse-y", `${e.clientY - rect.top}px`);
+      });
+    });
   }
 
   // ===============================================================
@@ -739,6 +748,104 @@ document.addEventListener("DOMContentLoaded", () => {
   window.openBookingModal = openBookingModal;
   window.openVehicleModal = openVehicleModal;
 
+  // ===============================================================
+  // 12. HERO CINEMATIC SLIDER CONTROLLER
+  // Cycles flagship showroom vehicles with Ken Burns crossfades
+  // ===============================================================
+  function initHeroSlider() {
+    const slides = document.querySelectorAll(".hero-slide");
+    const currentEl = document.getElementById("heroSlideCurrent");
+    const progressBar = document.getElementById("heroSliderProgress");
+    const nextBtn = document.getElementById("heroSlideNext");
+    const prevBtn = document.getElementById("heroSlidePrev");
+
+    if (!slides.length) return;
+
+    let currentIdx = 0;
+    const duration = 6500;
+    let progressInterval = null;
+    let slideTimer = null;
+    let startTime = Date.now();
+
+    function goToSlide(idx) {
+      slides[currentIdx].classList.remove("active");
+      currentIdx = (idx + slides.length) % slides.length;
+      slides[currentIdx].classList.add("active");
+
+      if (currentEl) {
+        currentEl.textContent = String(currentIdx + 1).padStart(2, "0");
+      }
+
+      resetProgress();
+    }
+
+    function resetProgress() {
+      clearInterval(progressInterval);
+      clearTimeout(slideTimer);
+
+      if (progressBar) progressBar.style.width = "0%";
+      startTime = Date.now();
+
+      progressInterval = setInterval(() => {
+        const elapsed = Date.now() - startTime;
+        const pct = Math.min(100, (elapsed / duration) * 100);
+        if (progressBar) progressBar.style.width = `${pct}%`;
+      }, 50);
+
+      slideTimer = setTimeout(() => {
+        goToSlide(currentIdx + 1);
+      }, duration);
+    }
+
+    if (nextBtn) nextBtn.addEventListener("click", () => goToSlide(currentIdx + 1));
+    if (prevBtn) prevBtn.addEventListener("click", () => goToSlide(currentIdx - 1));
+
+    // Mouse parallax tilt on hero background
+    const heroSection = document.getElementById("hero");
+    if (heroSection) {
+      heroSection.addEventListener("mousemove", (e) => {
+        const rect = heroSection.getBoundingClientRect();
+        const x = (e.clientX - rect.left) / rect.width - 0.5;
+        const y = (e.clientY - rect.top) / rect.height - 0.5;
+        const bgImages = heroSection.querySelectorAll(".hero-bg-image");
+        bgImages.forEach(img => {
+          img.style.transform = `scale(1.06) translate(${x * -18}px, ${y * -14}px)`;
+        });
+      });
+    }
+
+    resetProgress();
+  }
+
+  // ===============================================================
+  // 13. SCROLL-TRIGGERED REVEAL OBSERVER
+  // Smoothly reveals elements as user traverses the showroom
+  // ===============================================================
+  function initScrollRevealObserver() {
+    const targets = document.querySelectorAll(".section-header, .vehicle-card, .trust-item, .about-grid, .showroom-card, .finder-card, .followup-wrapper");
+    targets.forEach((el, i) => {
+      el.classList.add("reveal-on-scroll");
+      if (el.classList.contains("vehicle-card") || el.classList.contains("trust-item")) {
+        const delay = (i % 4) * 80;
+        el.style.transitionDelay = `${delay}ms`;
+      }
+    });
+
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          entry.target.classList.add("is-revealed");
+          observer.unobserve(entry.target);
+        }
+      });
+    }, {
+      threshold: 0.12,
+      rootMargin: "0px 0px -40px 0px"
+    });
+
+    targets.forEach(el => observer.observe(el));
+  }
+
   // Header "Book a Viewing" button
   const headerBookingBtn = document.getElementById("headerBookViewingBtn");
   if (headerBookingBtn) {
@@ -751,4 +858,6 @@ document.addEventListener("DOMContentLoaded", () => {
   renderCatalog();
   initFinderFlow();
   initInspector();
+  initHeroSlider();
+  initScrollRevealObserver();
 });

@@ -58,18 +58,37 @@
          2. HERO SECTION
          ======================================================================= -->
     <section class="hero-section" id="hero">
-      <div class="hero-background">
-        <img 
-          src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=85" 
-          alt="Luxury vehicle showroom photography" 
-          class="hero-bg-image" 
-        />
+      <div class="hero-background" id="heroBackground">
+        <div class="hero-slide active" data-index="0">
+          <img 
+            src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1920&q=85" 
+            alt="Porsche Cayenne Coupe" 
+            class="hero-bg-image" 
+          />
+        </div>
+        <div class="hero-slide" data-index="1">
+          <img 
+            src="https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=1920&q=85" 
+            alt="Mercedes-AMG G63" 
+            class="hero-bg-image" 
+          />
+        </div>
+        <div class="hero-slide" data-index="2">
+          <img 
+            src="https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1920&q=85" 
+            alt="Toyota Land Cruiser 300" 
+            class="hero-bg-image" 
+          />
+        </div>
         <div class="hero-overlay"></div>
       </div>
 
       <div class="container">
         <div class="hero-content">
-          <h1 class="hero-headline">Find the Car That Fits Your Drive.</h1>
+          <h1 class="hero-headline" aria-label="Find the Car That Fits Your Drive.">
+            <span class="hero-line"><span class="hero-word">Find</span> <span class="hero-word">the</span> <span class="hero-word">Car</span></span>
+            <span class="hero-line"><span class="hero-word">That</span> <span class="hero-word">Fits</span> <span class="hero-word text-sheen">Your Drive.</span></span>
+          </h1>
           <p class="hero-subtext">
             Browse carefully selected vehicles or tell us what you're looking for and we'll help you narrow it down.
           </p>
@@ -89,6 +108,22 @@
               <span class="trust-item-lbl">Secure Vehicle Delivery</span>
             </div>
           </div>
+        </div>
+      </div>
+
+      <!-- Hero Slide Controls -->
+      <div class="hero-slider-nav">
+        <div class="hero-slider-counter">
+          <span id="heroSlideCurrent">01</span>
+          <span class="hero-slider-divider">/</span>
+          <span>03</span>
+        </div>
+        <div class="hero-slider-bar">
+          <div class="hero-slider-progress" id="heroSliderProgress"></div>
+        </div>
+        <div class="hero-slider-arrows">
+          <button id="heroSlidePrev" aria-label="Previous Vehicle Slide">‹</button>
+          <button id="heroSlideNext" aria-label="Next Vehicle Slide">›</button>
         </div>
       </div>
     </section>

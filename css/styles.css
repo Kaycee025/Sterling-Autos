@@ -320,15 +320,40 @@ button {
   letter-spacing: 0.06em;
   padding: 0.85rem 1.65rem;
   border-radius: var(--radius-xs);
-  transition: all var(--transition-normal);
+  transition: transform 0.25s cubic-bezier(0.16, 1, 0.3, 1),
+              background-color 0.25s ease,
+              border-color 0.25s ease,
+              box-shadow 0.25s ease;
   text-transform: uppercase;
   white-space: nowrap;
+  position: relative;
+  overflow: hidden;
 }
 
 .btn-primary {
   background-color: var(--text-pure-white);
   color: var(--bg-black);
   border: 1px solid var(--text-pure-white);
+}
+
+.btn-primary::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: -120%;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
+  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.btn-primary:hover::before {
+  left: 120%;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.4);
 }
 
 .btn-primary:hover {
@@ -403,14 +428,41 @@ button {
   z-index: 1;
 }
 
+.hero-slide {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.4s ease;
+  overflow: hidden;
+}
+
+.hero-slide.active {
+  opacity: 1;
+  visibility: visible;
+}
+
 .hero-bg-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 35%;
-  filter: brightness(0.42) contrast(1.1);
-  transform: scale(1.02);
-  transition: transform 8s ease-out;
+  filter: brightness(0.42) contrast(1.15);
+  animation: kenBurns 14s infinite alternate ease-in-out;
+  transform-origin: center center;
+  will-change: transform;
+}
+
+@keyframes kenBurns {
+  0% {
+    transform: scale(1.02) translate(0, 0);
+  }
+  100% {
+    transform: scale(1.10) translate(-1.5%, -1%);
+  }
 }
 
 .hero-overlay {
@@ -422,15 +474,16 @@ button {
   background: linear-gradient(
     180deg, 
     rgba(8, 8, 9, 0.7) 0%, 
-    rgba(8, 8, 9, 0.4) 40%, 
+    rgba(8, 8, 9, 0.35) 40%, 
     rgba(8, 8, 9, 0.85) 85%,
     var(--bg-black) 100%
   );
+  z-index: 2;
 }
 
 .hero-content {
   position: relative;
-  z-index: 2;
+  z-index: 3;
   max-width: 820px;
 }
 
@@ -439,6 +492,7 @@ button {
   display: none !important;
 }
 
+/* Kinetic Headline Entrance & Word Reveal */
 .hero-headline {
   font-size: 3.75rem;
   font-weight: 800;
@@ -448,12 +502,73 @@ button {
   margin-bottom: 1.5rem;
 }
 
+.hero-line {
+  display: block;
+  overflow: hidden;
+  padding-bottom: 6px;
+}
+
+.hero-word {
+  display: inline-block;
+  transform: translateY(115%) rotate(1.5deg);
+  opacity: 0;
+  animation: heroWordEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  will-change: transform, opacity;
+}
+
+.hero-line:nth-child(1) .hero-word:nth-child(1) { animation-delay: 0.12s; }
+.hero-line:nth-child(1) .hero-word:nth-child(2) { animation-delay: 0.22s; }
+.hero-line:nth-child(1) .hero-word:nth-child(3) { animation-delay: 0.32s; }
+.hero-line:nth-child(2) .hero-word:nth-child(1) { animation-delay: 0.44s; }
+.hero-line:nth-child(2) .hero-word:nth-child(2) { animation-delay: 0.54s; }
+.hero-line:nth-child(2) .hero-word:nth-child(3) { animation-delay: 0.64s; }
+
+@keyframes heroWordEntrance {
+  0% {
+    transform: translateY(115%) rotate(2deg);
+    opacity: 0;
+  }
+  100% {
+    transform: translateY(0) rotate(0deg);
+    opacity: 1;
+  }
+}
+
+/* Metallic Light Sheen Sweep */
+.text-sheen {
+  background: linear-gradient(
+    110deg,
+    #ffffff 20%,
+    #a1a1aa 40%,
+    #ffffff 50%,
+    #e4e4e7 60%,
+    #ffffff 80%
+  );
+  background-size: 200% auto;
+  color: #fff;
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  animation: sheenAnimation 5s ease-in-out infinite;
+}
+
+@keyframes sheenAnimation {
+  0%, 60% {
+    background-position: 200% center;
+  }
+  100% {
+    background-position: -200% center;
+  }
+}
+
 .hero-subtext {
   font-size: 1.2rem;
   color: #D4D4D8;
   line-height: 1.6;
   max-width: 620px;
   margin-bottom: 2.5rem;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.75s;
 }
 
 .hero-cta-group {
@@ -461,9 +576,12 @@ button {
   align-items: center;
   gap: 1.25rem;
   flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.9s;
 }
 
-/* Trust Bar */
+/* Trust Bar with Stagger Entrance */
 .trust-strip {
   position: relative;
   z-index: 3;
@@ -473,6 +591,91 @@ button {
   display: flex;
   gap: 4.5rem;
   flex-wrap: wrap;
+  opacity: 0;
+  transform: translateY(18px);
+  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.05s;
+}
+
+@keyframes heroFadeUp {
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+/* Hero Slider Nav Controls */
+.hero-slider-nav {
+  position: absolute;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  gap: 1.25rem;
+  background: rgba(8, 8, 9, 0.75);
+  border: 1px solid var(--border-medium);
+  backdrop-filter: blur(10px);
+  -webkit-backdrop-filter: blur(10px);
+  padding: 0.65rem 1.25rem;
+  border-radius: var(--radius-xs);
+}
+
+.hero-slider-counter {
+  font-size: 0.8rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  color: var(--text-pure-white);
+  display: flex;
+  align-items: center;
+  gap: 0.35rem;
+}
+
+.hero-slider-divider {
+  color: var(--text-dim);
+}
+
+.hero-slider-bar {
+  width: 70px;
+  height: 2px;
+  background: rgba(255, 255, 255, 0.15);
+  border-radius: 1px;
+  overflow: hidden;
+  position: relative;
+}
+
+.hero-slider-progress {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  width: 0%;
+  background: var(--text-pure-white);
+  transition: width 0.1s linear;
+}
+
+.hero-slider-arrows {
+  display: flex;
+  gap: 0.5rem;
+}
+
+.hero-slider-arrows button {
+  width: 26px;
+  height: 26px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  color: var(--text-muted);
+  font-size: 1.1rem;
+  line-height: 1;
+  transition: all var(--transition-fast);
+}
+
+.hero-slider-arrows button:hover {
+  color: var(--text-pure-white);
+  border-color: var(--text-pure-white);
+  background: rgba(255, 255, 255, 0.12);
 }
 
 .trust-item {
@@ -509,7 +712,7 @@ button {
   gap: 2rem;
 }
 
-/* Vehicle Card */
+/* Vehicle Card with Interactive Spotlight & Lift */
 .vehicle-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -517,14 +720,35 @@ button {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform var(--transition-normal), border-color var(--transition-normal), box-shadow var(--transition-normal);
+  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
+              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
   position: relative;
 }
 
+.vehicle-card::before {
+  content: '';
+  position: absolute;
+  top: var(--card-mouse-y, -300px);
+  left: var(--card-mouse-x, -300px);
+  width: 400px;
+  height: 400px;
+  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 70%);
+  transform: translate(-50%, -50%);
+  pointer-events: none;
+  opacity: 0;
+  transition: opacity 0.35s ease;
+  z-index: 4;
+}
+
+.vehicle-card:hover::before {
+  opacity: 1;
+}
+
 .vehicle-card:hover {
-  transform: translateY(-4px);
-  border-color: var(--border-medium);
-  box-shadow: 0 12px 30px rgba(0, 0, 0, 0.5);
+  transform: translateY(-8px) scale(1.008);
+  border-color: rgba(255, 255, 255, 0.32);
+  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
 }
 
 .vehicle-card-media {
@@ -542,11 +766,12 @@ button {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  transition: transform var(--transition-slow);
+  transition: transform 0.7s cubic-bezier(0.16, 1, 0.3, 1), filter 0.7s ease;
 }
 
 .vehicle-card:hover .vehicle-card-image {
-  transform: scale(1.04);
+  transform: scale(1.06);
+  filter: brightness(1.05) contrast(1.05);
 }
 
 .vehicle-card-badge {
@@ -1735,4 +1960,50 @@ button {
   max-width: 680px;
   line-height: 1.6;
 }
+
+/* ==========================================================================
+   SCROLL REVEAL & MICRO-ANIMATION UTILITIES
+   ========================================================================== */
+.reveal-on-scroll {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
+              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
+  will-change: opacity, transform;
+}
+
+.reveal-on-scroll.is-revealed {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+.delay-100 { transition-delay: 0.1s; }
+.delay-200 { transition-delay: 0.2s; }
+.delay-300 { transition-delay: 0.3s; }
+.delay-400 { transition-delay: 0.4s; }
+
+.pulse-indicator {
+  display: inline-block;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background-color: var(--accent-red);
+  box-shadow: 0 0 0 0 rgba(201, 42, 42, 0.7);
+  animation: pulseLive 2s infinite;
+  margin-right: 6px;
+  vertical-align: middle;
+}
+
+@keyframes pulseLive {
+  0% {
+    box-shadow: 0 0 0 0 rgba(201, 42, 42, 0.7);
+  }
+  70% {
+    box-shadow: 0 0 0 8px rgba(201, 42, 42, 0);
+  }
+  100% {
+    box-shadow: 0 0 0 0 rgba(201, 42, 42, 0);
+  }
+}
+
 
