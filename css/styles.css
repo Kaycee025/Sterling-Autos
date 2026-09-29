@@ -1647,10 +1647,59 @@ button {
 }
 
 .page-hero {
-  padding-top: 140px;
-  padding-bottom: 60px;
-  background: linear-gradient(180deg, #0d0d10 0%, var(--bg-black) 100%);
+  position: relative;
+  padding-top: 150px;
+  padding-bottom: 70px;
+  background-color: var(--bg-black);
   border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+/* Background Car Image Layer */
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.45;
+  filter: brightness(0.8) contrast(1.15);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Luxury Vignette & Contrast Overlay */
+.page-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    rgba(8, 8, 9, 0.94) 0%, 
+    rgba(8, 8, 9, 0.86) 38%, 
+    rgba(8, 8, 9, 0.45) 75%,
+    rgba(8, 8, 9, 0.65) 100%
+  ),
+  linear-gradient(
+    180deg, 
+    rgba(8, 8, 9, 0.75) 0%, 
+    transparent 35%, 
+    rgba(8, 8, 9, 0.85) 85%, 
+    var(--bg-black) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.page-hero .container {
+  position: relative;
+  z-index: 3;
 }
 
 .page-hero-title {
@@ -1667,6 +1716,27 @@ button {
   color: var(--text-muted);
   max-width: 680px;
   line-height: 1.6;
+}
+
+/* Curated Page-Specific Vehicle Backdrops */
+.page-hero-vehicles::before {
+  background-image: url('https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1920&q=80');
+  background-position: 80% center;
+}
+
+.page-hero-finder::before {
+  background-image: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1920&q=80');
+  background-position: 75% center;
+}
+
+.page-hero-about::before {
+  background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1920&q=80');
+  background-position: 75% center;
+}
+
+.page-hero-contact::before {
+  background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1920&q=80');
+  background-position: 80% center;
 }
 
 

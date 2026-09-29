@@ -146,6 +146,21 @@ pipeline.processCustomerJourney(familyInput).then(res => {
   assert(cssContent.includes("heroLineRise"), "Hero headline rise animation is active");
   assert(!cssContent.includes("heroWordEntrance"), "Old word entrance animation is completely removed");
 
+  // Check dedicated page hero banners have car backdrops
+  const vehiclesHtml = fs.readFileSync(path.join(__dirname, 'vehicles.html'), 'utf8');
+  const finderHtml = fs.readFileSync(path.join(__dirname, 'find-your-car.html'), 'utf8');
+  const aboutHtml = fs.readFileSync(path.join(__dirname, 'about.html'), 'utf8');
+  const contactHtml = fs.readFileSync(path.join(__dirname, 'contact.html'), 'utf8');
+
+  assert(vehiclesHtml.includes("page-hero-vehicles"), "Vehicles page hero contains car backdrop class");
+  assert(finderHtml.includes("page-hero-finder"), "Find Your Car hero contains car backdrop class");
+  assert(aboutHtml.includes("page-hero-about"), "About Us hero contains car backdrop class");
+  assert(contactHtml.includes("page-hero-contact"), "Contact hero contains car backdrop class");
+  assert(cssContent.includes(".page-hero-vehicles::before"), "CSS defines vehicles car background");
+  assert(cssContent.includes(".page-hero-finder::before"), "CSS defines finder car background");
+  assert(cssContent.includes(".page-hero-about::before"), "CSS defines about car background");
+  assert(cssContent.includes(".page-hero-contact::before"), "CSS defines contact car background");
+
   // Check CSS for strict Black & White palette and no forbidden blue/purple
   assert(cssContent.includes("--bg-black: #080809"), "CSS defines strict black background variable");
   assert(cssContent.includes("--accent-red: #C92A2A"), "CSS defines subtle deep crimson red accent");
