@@ -23,6 +23,7 @@ document.addEventListener("DOMContentLoaded", () => {
       vehicleType: "any",
       brand: "any",
       purpose: "family",
+      purposes: ["family"],
       transmission: "any",
       fuel: "any",
       features: [],
@@ -312,6 +313,32 @@ document.addEventListener("DOMContentLoaded", () => {
           } else {
             state.formData.features = state.formData.features.filter(f => f !== value);
           }
+        } else if (group === "purpose") {
+          // Multi-select for purpose / intended use
+          card.classList.toggle("selected");
+          const isSelected = card.classList.contains("selected");
+
+          if (isSelected) {
+            if (!state.formData.purposes.includes(value)) {
+              state.formData.purposes.push(value);
+            }
+          } else {
+            // Keep at least 1 purpose selected
+            if (state.formData.purposes.length > 1) {
+              state.formData.purposes = state.formData.purposes.filter(p => p !== value);
+            } else {
+              card.classList.add("selected");
+            }
+          }
+
+          state.formData.purpose = state.formData.purposes.join(", ");
+
+          // Update purpose count badge
+          const purposeBadges = document.querySelectorAll("#purposeCountBadge");
+          purposeBadges.forEach(badge => {
+            const count = state.formData.purposes.length;
+            badge.textContent = `${count} Selected`;
+          });
         } else {
           // Single select per group
           document.querySelectorAll(`.selectable-card[data-group="${group}"]`).forEach(c => c.classList.remove("selected"));
@@ -448,6 +475,7 @@ document.addEventListener("DOMContentLoaded", () => {
         vehicleType: state.formData.vehicleType,
         brand: state.formData.brand,
         purpose: state.formData.purpose,
+        purposes: state.formData.purposes,
         transmission: state.formData.transmission,
         location: state.formData.location,
         iteration: state.liveSearchIteration
@@ -673,6 +701,7 @@ document.addEventListener("DOMContentLoaded", () => {
             vehicleType: state.formData.vehicleType,
             brand: state.formData.brand,
             purpose: state.formData.purpose,
+            purposes: state.formData.purposes,
             transmission: state.formData.transmission,
             location: state.formData.location,
             iteration: state.liveSearchIteration

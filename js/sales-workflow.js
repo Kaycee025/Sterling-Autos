@@ -104,8 +104,21 @@ class SalesAutomationPipeline {
       maxBudget = Number(input.customMaxBudget) || 200000000;
     }
 
-    // 2. Classify Intended Lifestyle & Driver Persona
-    const purpose = input.purpose || "daily-driving";
+    // 2. Classify Intended Lifestyle & Driver Persona (Supports single or multi-purpose)
+    let purposes = [];
+    if (Array.isArray(input.purposes) && input.purposes.length > 0) {
+      purposes = [...input.purposes];
+    } else if (Array.isArray(input.purpose) && input.purpose.length > 0) {
+      purposes = [...input.purpose];
+    } else if (typeof input.purpose === "string" && input.purpose.trim()) {
+      purposes = input.purpose.split(",").map(p => p.trim()).filter(Boolean);
+    }
+    if (purposes.length === 0) {
+      purposes = ["daily-driving"];
+    }
+
+    const primaryPurpose = purposes[0];
+
     const lifestylePersonas = {
       "family": {
         name: "Family Comfort & Safety",
@@ -165,7 +178,21 @@ class SalesAutomationPipeline {
       }
     };
 
-    const persona = lifestylePersonas[purpose] || lifestylePersonas["daily-driving"];
+    let persona;
+    if (purposes.length === 1) {
+      persona = lifestylePersonas[primaryPurpose] || lifestylePersonas["daily-driving"];
+    } else {
+      const personaNames = purposes.map(p => lifestylePersonas[p] ? lifestylePersonas[p].name.split("&")[0].trim() : p);
+      const combinedPriorities = [...new Set(purposes.flatMap(p => lifestylePersonas[p] ? lifestylePersonas[p].priorities : []))];
+      persona = {
+        name: `${personaNames.slice(0, 2).join(" & ")}${personaNames.length > 2 ? ' Versatility' : ''}`,
+        priorities: combinedPriorities,
+        weightSpace: 0.25,
+        weightReliability: 0.25,
+        weightBudget: 0.25,
+        weightPerformance: 0.25
+      };
+    }
 
     // 3. Customer geographic context
     const location = input.location || "Enugu";
@@ -184,7 +211,8 @@ class SalesAutomationPipeline {
       brandPreference: input.brand || "any",
       transmissionPreference: input.transmission || "any",
       fuelPreference: input.fuel || "any",
-      intendedPurpose: purpose,
+      intendedPurpose: primaryPurpose,
+      intendedPurposes: purposes,
       lifestylePersona: persona,
       location: location,
       importantFeatures: Array.isArray(input.features) ? input.features : (input.features ? [input.features] : []),
@@ -292,32 +320,56 @@ class SalesAutomationPipeline {
       breakdown.brandFit = 4;
     }
 
-    // 4. Purpose & Lifestyle Suitability (Max 15 pts)
-    const purpose = profile.intendedPurpose;
-    let purposeScore = 8;
+    // 4. Purpose & Lifestyle Suitability (Max 15 pts, supports multi-purpose evaluation)
+    const purposes = (profile.intendedPurposes && profile.intendedPurposes.length > 0)
+      ? profile.intendedPurposes
+      : [profile.intendedPurpose || "daily-driving"];
 
-    if (purpose === "family") {
-      if (vehicle.seating >= 7) purposeScore += 7;
-      else if (vehicle.bodyType === "SUV") purposeScore += 5;
-      else if (vehicle.bodyType === "Sedan") purposeScore += 3;
-    } else if (purpose === "business" || purpose === "luxury") {
-      if (vehicle.tags.includes("Prestige") || vehicle.tags.includes("Luxury") || vehicle.tags.includes("Executive")) {
-        purposeScore += 7;
+    let totalPurposePoints = 0;
+    let matchingPurposesCount = 0;
+
+    for (const purp of purposes) {
+      let currentScore = 6;
+      if (purp === "family") {
+        if (vehicle.seating >= 7) currentScore = 10;
+        else if (vehicle.bodyType === "SUV") currentScore = 8;
+        else if (vehicle.bodyType === "Sedan") currentScore = 5;
+      } else if (purp === "business" || purp === "luxury") {
+        if (vehicle.tags.includes("Prestige") || vehicle.tags.includes("Luxury") || vehicle.tags.includes("Executive")) {
+          currentScore = 10;
+        } else if (vehicle.price >= 50000000) {
+          currentScore = 7;
+        }
+      } else if (purp === "long-distance") {
+        if (vehicle.tags.includes("Long-distance travel") || vehicle.driveType.includes("4WD") || vehicle.driveType.includes("AWD")) {
+          currentScore = 10;
+        } else {
+          currentScore = 6;
+        }
+      } else if (purp === "daily-driving" || purp === "first-car") {
+        if (vehicle.tags.includes("Low maintenance") || vehicle.tags.includes("Daily driving") || vehicle.tags.includes("Fuel efficiency")) {
+          currentScore = 10;
+        } else {
+          currentScore = 6;
+        }
+      } else if (purp === "performance") {
+        if (vehicle.tags.includes("Performance")) {
+          currentScore = 10;
+        } else {
+          currentScore = 5;
+        }
       }
-    } else if (purpose === "long-distance") {
-      if (vehicle.tags.includes("Long-distance travel") || vehicle.driveType.includes("4WD") || vehicle.driveType.includes("AWD")) {
-        purposeScore += 7;
-      }
-    } else if (purpose === "daily-driving" || purpose === "first-car") {
-      if (vehicle.tags.includes("Low maintenance") || vehicle.tags.includes("Daily driving")) {
-        purposeScore += 7;
-      }
-    } else if (purpose === "performance") {
-      if (vehicle.tags.includes("Performance")) {
-        purposeScore += 7;
-      }
+
+      if (currentScore >= 8) matchingPurposesCount++;
+      totalPurposePoints += currentScore;
     }
-    breakdown.purposeFit = Math.min(15, purposeScore);
+
+    let calculatedPurposeFit = Math.round(totalPurposePoints / purposes.length);
+    // Multi-purpose synergy bonus: vehicle satisfies multiple selected purposes at once
+    if (purposes.length > 1 && matchingPurposesCount > 1) {
+      calculatedPurposeFit += Math.min(3, matchingPurposesCount);
+    }
+    breakdown.purposeFit = Math.min(15, Math.max(6, calculatedPurposeFit + 4));
 
     // 5. Powertrain (Transmission & Fuel) (Max 10 pts)
     let powertrainScore = 6;
@@ -369,26 +421,41 @@ class SalesAutomationPipeline {
       reasons.push(`leaves comfortable headroom within your target expenditure`);
     }
 
-    // Purpose & capability commentary
-    const purpose = profile.intendedPurpose;
-    if (purpose === "family") {
-      if (vehicle.seating >= 7) {
-        reasons.push(`delivering the expansive 7-passenger capacity and safety features your family needs`);
-      } else {
-        reasons.push(`providing generous passenger legroom and family-friendly cargo versatility`);
+    // Purpose & capability commentary (Multi-purpose editorial narrative)
+    const purposes = (profile.intendedPurposes && profile.intendedPurposes.length > 0)
+      ? profile.intendedPurposes
+      : [profile.intendedPurpose];
+
+    const purposeSnippets = [];
+    for (const purp of purposes) {
+      if (purp === "family") {
+        if (vehicle.seating >= 7) {
+          purposeSnippets.push(`delivering the expansive 7-passenger capacity and safety features your family needs`);
+        } else {
+          purposeSnippets.push(`providing generous passenger legroom and family-friendly cargo versatility`);
+        }
+      } else if (purp === "business") {
+        purposeSnippets.push(`projecting an authoritative executive presence for corporate engagements`);
+      } else if (purp === "daily-driving") {
+        purposeSnippets.push(`offering effortless daily drivability and low maintenance reliability`);
+      } else if (purp === "long-distance") {
+        purposeSnippets.push(`equipped with robust terrain clearance and highway cruising composure for inter-state journeys`);
+      } else if (purp === "luxury") {
+        purposeSnippets.push(`delivering peerless cabin craftsmanship and bespoke road presence`);
+      } else if (purp === "performance") {
+        purposeSnippets.push(`delivering razor-sharp throttle responsiveness and sports-tuned suspension`);
+      } else if (purp === "first-car") {
+        purposeSnippets.push(`renowned for bulletproof mechanical dependability and readily available parts`);
       }
-    } else if (purpose === "business") {
-      reasons.push(`projecting an authoritative executive presence for corporate engagements`);
-    } else if (purpose === "daily-driving") {
-      reasons.push(`offering effortless daily drivability and low maintenance reliability`);
-    } else if (purpose === "long-distance") {
-      reasons.push(`equipped with robust terrain clearance and highway cruising composure for inter-state journeys`);
-    } else if (purpose === "luxury") {
-      reasons.push(`delivering peerless cabin craftsmanship and bespoke road presence`);
-    } else if (purpose === "performance") {
-      reasons.push(`delivering razor-sharp throttle responsiveness and sports-tuned suspension`);
-    } else if (purpose === "first-car") {
-      reasons.push(`renowned for bulletproof mechanical dependability and readily available parts`);
+    }
+
+    if (purposeSnippets.length === 1) {
+      reasons.push(purposeSnippets[0]);
+    } else if (purposeSnippets.length === 2) {
+      reasons.push(`${purposeSnippets[0]}, while simultaneously ${purposeSnippets[1]}`);
+    } else if (purposeSnippets.length > 2) {
+      const primaryTwo = purposeSnippets.slice(0, 2).join(", while ");
+      reasons.push(`${primaryTwo}, paired with multi-purpose lifestyle versatility`);
     }
 
     // Location note
@@ -470,10 +537,14 @@ class SalesAutomationPipeline {
     // 1. Personalized Dealer Note (Human, understated, professional)
     const topPicks = matchResults.recommendations.slice(0, 2).map(r => `${r.vehicle.year} ${r.vehicle.make} ${r.vehicle.model}`).join(" and ");
 
-    const personalNote = `Hello ${customerFirstName}, based on what you shared with us regarding your search in ${city}, I believe the ${topPicks} are worth a closer look. Both vehicles provide the ${profile.vehicleTypePreference !== "any" ? profile.vehicleTypePreference : "driving experience"} you requested, align closely with your ${profile.budgetRange.label} target, and are well suited to ${profile.intendedPurpose.replace("-", " ")}. Whenever you are ready, I would be pleased to welcome you for a private walkthrough.`;
+    const purposeSummary = (profile.intendedPurposes && profile.intendedPurposes.length > 1)
+      ? profile.intendedPurposes.map(p => p.replace(/-/g, " ")).join(" and ")
+      : profile.intendedPurpose.replace(/-/g, " ");
+
+    const personalNote = `Hello ${customerFirstName}, based on what you shared with us regarding your search in ${city}, I believe the ${topPicks} are worth a closer look. Both vehicles provide the ${profile.vehicleTypePreference !== "any" ? profile.vehicleTypePreference : "driving experience"} you requested, align closely with your ${profile.budgetRange.label} target, and are well suited to ${purposeSummary}. Whenever you are ready, I would be pleased to welcome you for a private walkthrough.`;
 
     // 2. Pre-composed Viewing Request Message (Natural customer voice)
-    const customerInquiryDraft = `Hello ${consultant.name}, I recently completed your Find My Car consultation for a vehicle suited for ${profile.intendedPurpose.replace("-", " ")} in ${city}. I am interested in the ${topVehicle.year} ${topVehicle.make} ${topVehicle.model} (${topVehicle.priceFormatted}). Please let me know available slots to schedule a private viewing.`;
+    const customerInquiryDraft = `Hello ${consultant.name}, I recently completed your Find My Car consultation for a vehicle suited for ${purposeSummary} in ${city}. I am interested in the ${topVehicle.year} ${topVehicle.make} ${topVehicle.model} (${topVehicle.priceFormatted}). Please let me know available slots to schedule a private viewing.`;
 
     // 3. Actionable Concierge Triggers
     return {

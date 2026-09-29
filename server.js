@@ -379,10 +379,22 @@ function performLiveMarketSearch(params) {
     vehicleType = "any",
     brand = "any",
     purpose = "daily-driving",
+    purposes: rawPurposes = null,
     transmission = "any",
     location = "Enugu",
     iteration = 1
   } = params;
+
+  let chosenPurposes = [];
+  if (Array.isArray(rawPurposes) && rawPurposes.length > 0) {
+    chosenPurposes = rawPurposes;
+  } else if (Array.isArray(purpose) && purpose.length > 0) {
+    chosenPurposes = purpose;
+  } else if (typeof purpose === "string" && purpose.trim()) {
+    chosenPurposes = purpose.split(",").map(p => p.trim()).filter(Boolean);
+  } else {
+    chosenPurposes = ["daily-driving"];
+  }
 
   // Filter pool based on user's criteria with smart tolerance
   let candidates = LIVE_MARKET_POOL.filter(car => {
@@ -417,10 +429,21 @@ function performLiveMarketSearch(params) {
     candidates = [...LIVE_MARKET_POOL];
   }
 
-  // Dynamic non-repeating shuffle based on iteration seed
+  // Dynamic non-repeating shuffle based on iteration seed + purpose relevance
   const seededCandidates = [...candidates].sort((a, b) => {
-    const hashA = (a.id.length * 37 + iteration * 19) % 100;
-    const hashB = (b.id.length * 37 + iteration * 19) % 100;
+    // Calculate multi-purpose tag overlap
+    const purposeKeywords = chosenPurposes.map(p => p.toLowerCase().replace(/-/g, ' '));
+    const scoreA = a.tags.reduce((acc, tag) => {
+      const t = tag.toLowerCase();
+      return acc + (purposeKeywords.some(pk => t.includes(pk) || pk.includes(t)) ? 25 : 0);
+    }, 0);
+    const scoreB = b.tags.reduce((acc, tag) => {
+      const t = tag.toLowerCase();
+      return acc + (purposeKeywords.some(pk => t.includes(pk) || pk.includes(t)) ? 25 : 0);
+    }, 0);
+
+    const hashA = ((a.id.length * 37 + iteration * 19) % 100) - scoreA;
+    const hashB = ((b.id.length * 37 + iteration * 19) % 100) - scoreB;
     return hashA - hashB;
   });
 
@@ -474,7 +497,8 @@ function performLiveMarketSearch(params) {
   });
 
   // Construct comprehensive search telemetry
-  const searchQuerySummary = `${brand !== 'any' ? brand : ''} ${vehicleType !== 'any' ? vehicleType : 'Vehicles'} in ${location} (${formatNaira(minBudget)} – ${formatNaira(maxBudget)})`.trim();
+  const purposeTagLine = chosenPurposes.length > 0 ? `for ${chosenPurposes.map(p => p.replace(/-/g, ' ')).join(' + ')}` : '';
+  const searchQuerySummary = `${brand !== 'any' ? brand : ''} ${vehicleType !== 'any' ? vehicleType : 'Vehicles'} ${purposeTagLine} in ${location} (${formatNaira(minBudget)} – ${formatNaira(maxBudget)})`.replace(/\s+/g, ' ').trim();
   const overallGoogleQuery = encodeURIComponent(`${searchQuerySummary} foreign used price Nigeria site:jiji.ng OR site:cars45.com`);
 
   return {

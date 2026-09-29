@@ -119,6 +119,26 @@ pipeline.processCustomerJourney(familyInput).then(res => {
   assert(res.followUp.consultant.name === "Babatunde Alabi", `Stage 3 assigned Lagos Head of Sales: ${res.followUp.consultant.name}`);
   assert(res.profile.intendedPurpose === "business", "Stage 1 retained business purpose");
 
+  // Test Case B2: Multi-Option Purpose Selection (Family + Long-Distance + Luxury)
+  console.log("\nTEST SUITE 2B: Multi-Option Lifestyle Selection & Synergy Scoring");
+  const multiPurposeInput = {
+    name: "Chief Anthony Okonkwo",
+    budgetPreset: "100m-plus",
+    vehicleType: "SUV",
+    brand: "any",
+    purposes: ["family", "long-distance", "luxury"],
+    transmission: "Automatic",
+    location: "Enugu"
+  };
+
+  return pipeline.processCustomerJourney(multiPurposeInput);
+}).then(res => {
+  assert(res.profile.intendedPurposes.length === 3, "Stage 1 preserved all 3 selected purposes (family, long-distance, luxury)");
+  assert(res.profile.intendedPurposes.includes("family") && res.profile.intendedPurposes.includes("long-distance"), "Stage 1 includes family and long-distance in profile");
+  assert(res.matches.recommendations.length > 0, "Stage 2 returned matches for combined multi-purpose criteria");
+  const topRec = res.matches.recommendations[0];
+  assert(topRec.whyItFits.includes("family") || topRec.whyItFits.includes("inter-state") || topRec.whyItFits.includes("craftsmanship"), "Stage 2 generated multi-purpose editorial reasoning");
+  assert(res.followUp.personalNote.includes("family") || res.followUp.personalNote.includes("long distance"), "Stage 3 personalized letter reflects combined multi-purpose requirements");
 
   // Test Case C: Edge Case - Extreme filter with No Exact Match (Fallback test)
   console.log("\nTEST SUITE 3: Fallback & Edge Case Handling (No Exact Match)");
@@ -195,6 +215,13 @@ pipeline.processCustomerJourney(familyInput).then(res => {
   assert(cssContent.includes("--accent-red: #C92A2A"), "CSS defines subtle deep crimson red accent");
   assert(!cssContent.includes("#0000ff") && !cssContent.includes("#800080"), "CSS contains no raw blue or purple colors");
 
+  // Multi-selection UI indicators
+  assert(finderHtml.includes('id="purposeCountBadge"'), "Find Your Car contains multi-purpose count badge");
+  assert(finderHtml.includes('selectable-check-icon'), "Find Your Car contains selectable checkmark icons");
+  assert(htmlContent.includes('id="purposeCountBadge"'), "Homepage contains multi-purpose count badge");
+  assert(cssContent.includes(".step-multi-badge"), "CSS defines multi-select badge styling");
+  assert(cssContent.includes(".selectable-check-icon"), "CSS defines checkmark icon styling");
+
   // --- TEST SUITE 5: LIVE MARKET SEARCH & GOOGLE SURFING ENGINE ---
   console.log("\nTEST SUITE 5: Live Market Search & Google Surfing Engine");
   const { performLiveMarketSearch, LIVE_MARKET_POOL } = require('./server.js');
@@ -232,6 +259,15 @@ pipeline.processCustomerJourney(familyInput).then(res => {
   const ids1 = search1.liveMarketMatches.map(m => m.id).join(",");
   const ids2 = search2.liveMarketMatches.map(m => m.id).join(",");
   assert(ids1 !== ids2, `Dynamic iteration ensures fresh, non-repeating results (Batch 1: ${search1.liveMarketMatches[0].model} vs Batch 2: ${search2.liveMarketMatches[0].model})`);
+
+  // Test multi-purpose live market search query summary
+  const multiSearch = performLiveMarketSearch({
+    name: "Chief Anthony Okonkwo",
+    purposes: ["family", "long-distance"],
+    vehicleType: "SUV",
+    location: "Enugu"
+  });
+  assert(multiSearch.searchSummary.query.includes("family + long distance"), "Live market search query summary reflects combined multi-purpose options");
 
   // Verify HTTP endpoint POST /api/live-market-search
   const http = require('http');
