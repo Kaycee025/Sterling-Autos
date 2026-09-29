@@ -1589,11 +1589,129 @@ button {
 
 
 /* ==========================================================================
+   DEDICATED PAGE HERO BANNERS & BADGE SUPPRESSION
+   ========================================================================== */
+.vehicle-card-badge,
+.vehicle-card-location {
+  display: none !important;
+}
+
+.page-hero {
+  position: relative;
+  padding-top: 150px;
+  padding-bottom: 70px;
+  background-color: var(--bg-black);
+  border-bottom: 1px solid var(--border-subtle);
+  overflow: hidden;
+}
+
+/* Background Car Image Layer */
+.page-hero::before {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-size: cover;
+  background-repeat: no-repeat;
+  opacity: 0.68;
+  filter: brightness(0.95) contrast(1.12);
+  pointer-events: none;
+  z-index: 1;
+}
+
+/* Luxury Vignette & Contrast Overlay */
+.page-hero::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(
+    90deg, 
+    rgba(8, 8, 9, 0.95) 0%, 
+    rgba(8, 8, 9, 0.82) 36%, 
+    rgba(8, 8, 9, 0.18) 70%,
+    rgba(8, 8, 9, 0.35) 100%
+  ),
+  linear-gradient(
+    180deg, 
+    rgba(8, 8, 9, 0.70) 0%, 
+    transparent 25%, 
+    transparent 65%,
+    rgba(8, 8, 9, 0.82) 88%, 
+    var(--bg-black) 100%
+  );
+  pointer-events: none;
+  z-index: 2;
+}
+
+.page-hero .container {
+  position: relative;
+  z-index: 3;
+}
+
+.page-hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-pure-white);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.page-hero-sub {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  line-height: 1.6;
+}
+
+/* Curated Page-Specific Vehicle Backdrops (Served locally with 0ms delay) */
+.page-hero-vehicles::before {
+  background-image: url('../assets/images/hero-vehicles.jpg');
+  background-position: 80% center;
+}
+
+.page-hero-finder::before {
+  background-image: url('../assets/images/hero-finder.jpg');
+  background-position: 75% center;
+}
+
+.page-hero-about::before {
+  background-image: url('../assets/images/hero-about.jpg');
+  background-position: 75% center;
+}
+
+.page-hero-contact::before {
+  background-image: url('../assets/images/hero-contact.jpg');
+  background-position: 80% center;
+}
+
+
+/* ==========================================================================
    RESPONSIVE DESIGN (DESKTOP, TABLET, MOBILE & COMPACT PHONES)
    ========================================================================== */
 @media (max-width: 1024px) {
   .hero-headline {
     font-size: 3rem;
+  }
+  
+  .page-hero {
+    padding-top: 130px;
+    padding-bottom: 55px;
+  }
+  
+  .page-hero-title {
+    font-size: 2.5rem;
+    line-height: 1.18;
+  }
+  
+  .page-hero-sub {
+    font-size: 1.05rem;
+    line-height: 1.55;
   }
   .about-grid, 
   .contact-grid {
@@ -1723,20 +1841,42 @@ button {
     flex-direction: column;
   }
 
-  /* Dedicated Page Hero Banners */
+  /* Dedicated Page Hero Banners (Mobile Optimized) */
   .page-hero {
-    padding-top: 115px;
-    padding-bottom: 45px;
+    padding-top: 108px;
+    padding-bottom: 38px;
+  }
+
+  .page-hero::before {
+    background-position: center center;
+  }
+
+  .page-hero::after {
+    background: linear-gradient(
+      180deg, 
+      rgba(8, 8, 9, 0.88) 0%, 
+      rgba(8, 8, 9, 0.75) 45%, 
+      rgba(8, 8, 9, 0.92) 85%,
+      var(--bg-black) 100%
+    );
   }
   
   .page-hero-title {
-    font-size: 2.15rem;
-    line-height: 1.18;
+    font-size: 1.95rem;
+    line-height: 1.22;
+    letter-spacing: -0.015em;
+    margin-bottom: 0.85rem;
+  }
+
+  .page-hero-title br {
+    display: inline;
+    content: ' ';
   }
   
   .page-hero-sub {
-    font-size: 1rem;
+    font-size: 0.95rem;
     line-height: 1.55;
+    max-width: 100%;
   }
 
   /* Vehicles Grid & Filters */
@@ -1987,13 +2127,51 @@ button {
     padding-left: 1rem;
     padding-right: 1rem;
   }
-  
+
+  /* Compact Mobile Hero Headline */
   .hero-headline {
-    font-size: 1.85rem;
+    font-size: 1.65rem;
+    line-height: 1.2;
+    margin-bottom: 0.85rem;
+  }
+
+  .hero-subtext {
+    font-size: 0.875rem;
+    line-height: 1.5;
+    margin-bottom: 1.35rem;
   }
   
+  /* Compact Mobile Page Hero (Balanced proportion, doesn't fill screen) */
+  .page-hero {
+    padding-top: 92px;
+    padding-bottom: 28px;
+  }
+
   .page-hero-title {
-    font-size: 1.85rem;
+    font-size: 1.45rem;
+    line-height: 1.26;
+    letter-spacing: -0.01em;
+    margin-bottom: 0.65rem;
+    word-break: normal;
+    overflow-wrap: break-word;
+  }
+
+  .page-hero-title br {
+    display: inline;
+    content: ' ';
+  }
+
+  .page-hero-sub {
+    font-size: 0.85rem;
+    line-height: 1.5;
+    color: var(--text-muted);
+  }
+
+  .section-tag {
+    font-size: 0.68rem;
+    letter-spacing: 0.1em;
+    margin-bottom: 0.45rem;
+    padding: 0.25rem 0.65rem;
   }
   
   .header-actions .btn-primary {
@@ -2006,120 +2184,21 @@ button {
   }
   
   .about-headline {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    line-height: 1.25;
+  }
+  
+  .about-text {
+    font-size: 0.875rem;
+    line-height: 1.6;
   }
   
   .section-title {
-    font-size: 1.75rem;
+    font-size: 1.5rem;
+    line-height: 1.25;
   }
   
   .followup-action-card {
     padding: 1.25rem 1rem;
   }
 }
-
-/* ==========================================================================
-   DEDICATED PAGE HERO BANNERS & BADGE SUPPRESSION
-   ========================================================================== */
-.vehicle-card-badge,
-.vehicle-card-location {
-  display: none !important;
-}
-
-.page-hero {
-  position: relative;
-  padding-top: 150px;
-  padding-bottom: 70px;
-  background-color: var(--bg-black);
-  border-bottom: 1px solid var(--border-subtle);
-  overflow: hidden;
-}
-
-/* Background Car Image Layer */
-.page-hero::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background-size: cover;
-  background-repeat: no-repeat;
-  opacity: 0.68;
-  filter: brightness(0.95) contrast(1.12);
-  pointer-events: none;
-  z-index: 1;
-}
-
-/* Luxury Vignette & Contrast Overlay */
-.page-hero::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(
-    90deg, 
-    rgba(8, 8, 9, 0.95) 0%, 
-    rgba(8, 8, 9, 0.82) 36%, 
-    rgba(8, 8, 9, 0.18) 70%,
-    rgba(8, 8, 9, 0.35) 100%
-  ),
-  linear-gradient(
-    180deg, 
-    rgba(8, 8, 9, 0.70) 0%, 
-    transparent 25%, 
-    transparent 65%,
-    rgba(8, 8, 9, 0.82) 88%, 
-    var(--bg-black) 100%
-  );
-  pointer-events: none;
-  z-index: 2;
-}
-
-.page-hero .container {
-  position: relative;
-  z-index: 3;
-}
-
-.page-hero-title {
-  font-size: 3rem;
-  font-weight: 800;
-  letter-spacing: -0.02em;
-  color: var(--text-pure-white);
-  line-height: 1.15;
-  margin-bottom: 1rem;
-}
-
-.page-hero-sub {
-  font-size: 1.15rem;
-  color: var(--text-muted);
-  max-width: 680px;
-  line-height: 1.6;
-}
-
-/* Curated Page-Specific Vehicle Backdrops (Served locally with 0ms delay) */
-.page-hero-vehicles::before {
-  background-image: url('../assets/images/hero-vehicles.jpg');
-  background-position: 80% center;
-}
-
-.page-hero-finder::before {
-  background-image: url('../assets/images/hero-finder.jpg');
-  background-position: 75% center;
-}
-
-.page-hero-about::before {
-  background-image: url('../assets/images/hero-about.jpg');
-  background-position: 75% center;
-}
-
-.page-hero-contact::before {
-  background-image: url('../assets/images/hero-contact.jpg');
-  background-position: 80% center;
-}
-
-
-
-
