@@ -253,7 +253,7 @@ document.addEventListener("DOMContentLoaded", () => {
     return `
       <article class="vehicle-card" data-vehicle-id="${v.id}">
         <div class="vehicle-card-media">
-          <img src="${v.image}" alt="${v.year} ${v.make} ${v.model}" class="vehicle-card-image" loading="lazy" />
+          <img src="${v.image}" alt="${v.year} ${v.make} ${v.model}" class="vehicle-card-image" decoding="async" />
         </div>
         <div class="vehicle-card-body">
           <div class="vehicle-card-make-year">${v.year} · ${v.make} · ${v.bodyType}</div>

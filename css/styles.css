@@ -2094,24 +2094,24 @@ button {
   line-height: 1.6;
 }
 
-/* Curated Page-Specific Vehicle Backdrops */
+/* Curated Page-Specific Vehicle Backdrops (Served locally with 0ms delay) */
 .page-hero-vehicles::before {
-  background-image: url('https://images.unsplash.com/photo-1617788138017-80ad40651399?auto=format&fit=crop&w=1920&q=80');
+  background-image: url('../assets/images/hero-vehicles.jpg');
   background-position: 80% center;
 }
 
 .page-hero-finder::before {
-  background-image: url('https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1920&q=80');
+  background-image: url('../assets/images/hero-finder.jpg');
   background-position: 75% center;
 }
 
 .page-hero-about::before {
-  background-image: url('https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1920&q=80');
+  background-image: url('../assets/images/hero-about.jpg');
   background-position: 75% center;
 }
 
 .page-hero-contact::before {
-  background-image: url('https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1920&q=80');
+  background-image: url('../assets/images/hero-contact.jpg');
   background-position: 80% center;
 }
 

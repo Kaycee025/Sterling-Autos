@@ -170,6 +170,13 @@ pipeline.processCustomerJourney(familyInput).then(res => {
   assert(cssContent.includes(".about-metrics {\n    grid-template-columns: 1fr;"), "CSS stacks about metrics vertically on mobile");
   assert(cssContent.includes(".about-gallery-grid {\n    grid-template-columns: 1fr;"), "CSS stacks about gallery photos on mobile");
 
+  // Performance & Instant Loading Validation (No Lazy Loading)
+  const appJs = fs.readFileSync(path.join(__dirname, 'js/app.js'), 'utf8');
+  assert(!appJs.includes('loading="lazy"'), "No lazy loading attributes in codebase");
+  assert(finderHtml.includes('rel="preload" as="image" href="assets/images/hero-finder.jpg"'), "Find Your Car preloads hero background image");
+  assert(vehiclesHtml.includes('rel="preload" as="image" href="assets/images/hero-vehicles.jpg"'), "Vehicles preloads hero background image");
+  assert(cssContent.includes("assets/images/hero-finder.jpg"), "CSS loads hero image locally for 0ms delay");
+
   // Check CSS for strict Black & White palette and no forbidden blue/purple
   assert(cssContent.includes("--bg-black: #080809"), "CSS defines strict black background variable");
   assert(cssContent.includes("--accent-red: #C92A2A"), "CSS defines subtle deep crimson red accent");
