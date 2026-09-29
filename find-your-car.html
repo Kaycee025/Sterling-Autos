@@ -1,0 +1,688 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Find Your Car — Sterling Autos</title>
+  <meta name="description" content="Discover your ideal vehicle match through our automated sales consultation based on your budget, driving purpose, and preferred marque." />
+  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@300;400;500;600;700;800&family=Playfair+Display:ital,wght@0,500;0,600;0,700;1,400&display=swap" rel="stylesheet" />
+</head>
+<body>
+
+  <!-- =======================================================================
+       1. NAVIGATION BAR
+       ======================================================================= -->
+  <header class="site-header" id="siteHeader">
+    <div class="container">
+      <div class="header-inner">
+        <!-- Logo -->
+        <a href="index.html" class="brand-logo" aria-label="Sterling Autos Homepage">
+          <div class="brand-emblem">S</div>
+          <div class="brand-text">
+            <span class="brand-name">Sterling Autos</span>
+            <span class="brand-sub">Luxury & Executive Motors</span>
+          </div>
+        </a>
+
+        <!-- Desktop Navigation -->
+        <nav aria-label="Main Navigation">
+          <ul class="nav-menu" id="navMenu">
+            <li><a href="index.html" class="nav-link">Home</a></li>
+            <li><a href="vehicles.html" class="nav-link">Vehicles</a></li>
+            <li><a href="find-your-car.html" class="nav-link active">Find Your Car</a></li>
+            <li><a href="about.html" class="nav-link">About</a></li>
+            <li><a href="contact.html" class="nav-link">Contact</a></li>
+          </ul>
+        </nav>
+
+        <!-- Right CTA Actions -->
+        <div class="header-actions">
+          <button class="btn btn-outline btn-sm" id="headerBookViewingBtn">Book a Viewing</button>
+          <a href="find-your-car.html" class="btn btn-primary btn-sm">Find My Car</a>
+          <button class="mobile-menu-btn" id="mobileMenuBtn" aria-label="Toggle Navigation Menu">
+            <span></span>
+            <span></span>
+            <span></span>
+          </button>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <main>
+    <!-- =======================================================================
+         PAGE HERO BANNER
+         ======================================================================= -->
+    <section class="page-hero">
+      <div class="container">
+        <span class="section-tag">Intelligent Consultation</span>
+        <h1 class="page-hero-title">Find Your Match</h1>
+        <p class="page-hero-sub">
+          Tell us what you are looking for. Our automated consultation evaluates our inventory across Nigeria and curates the vehicles that best align with your budget, lifestyle, and driving demands.
+        </p>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         FIND YOUR CAR INTERACTIVE FLOW
+         ======================================================================= -->
+    <section class="finder-section section-padding" id="finder">
+      <div class="container">
+        <div class="finder-container">
+          <div class="finder-card">
+            <!-- Stepper Progress Header -->
+            <div class="stepper-header">
+              <div class="stepper-steps-indicator">
+                <div class="step-indicator-item active" data-step-indicator="1">
+                  <span class="step-pill">1</span>
+                  <span>Budget & City</span>
+                </div>
+                <div class="step-indicator-item" data-step-indicator="2">
+                  <span class="step-pill">2</span>
+                  <span>Type & Brand</span>
+                </div>
+                <div class="step-indicator-item" data-step-indicator="3">
+                  <span class="step-pill">3</span>
+                  <span>Purpose</span>
+                </div>
+                <div class="step-indicator-item" data-step-indicator="4">
+                  <span class="step-pill">4</span>
+                  <span>Preferences</span>
+                </div>
+                <div class="step-indicator-item" data-step-indicator="5">
+                  <span class="step-pill">5</span>
+                  <span>Consultation</span>
+                </div>
+              </div>
+            </div>
+
+            <!-- Interactive Form Content -->
+            <div id="finderCardContent">
+              <!-- STEP 1: Budget & City -->
+              <div class="finder-step-content active" data-step="1">
+                <h3 class="step-title">What is your planned investment range?</h3>
+                <p class="step-desc">Select a budget band or enter your specific investment parameters.</p>
+
+                <div class="option-grid">
+                  <div class="selectable-card" data-group="budgetPreset" data-value="under-10m">
+                    <div class="selectable-card-title">Under ₦10m</div>
+                    <div class="selectable-card-sub">Accessible daily mobility</div>
+                  </div>
+                  <div class="selectable-card" data-group="budgetPreset" data-value="10m-20m">
+                    <div class="selectable-card-title">₦10m–₦20m</div>
+                    <div class="selectable-card-sub">Established reliability & sedans</div>
+                  </div>
+                  <div class="selectable-card selected" data-group="budgetPreset" data-value="20m-40m">
+                    <div class="selectable-card-title">₦20m–₦40m</div>
+                    <div class="selectable-card-sub">Premium sedans & mid-size luxury SUVs</div>
+                  </div>
+                  <div class="selectable-card" data-group="budgetPreset" data-value="40m-70m">
+                    <div class="selectable-card-title">₦40m–₦70m</div>
+                    <div class="selectable-card-sub">Executive luxury SUVs & touring 4x4s</div>
+                  </div>
+                  <div class="selectable-card" data-group="budgetPreset" data-value="70m-plus">
+                    <div class="selectable-card-title">₦70m+</div>
+                    <div class="selectable-card-sub">Flagship prestige & high performance</div>
+                  </div>
+                  <div class="selectable-card" data-group="budgetPreset" data-value="custom">
+                    <div class="selectable-card-title">Custom Range</div>
+                    <div class="selectable-card-sub">Specify exact upper & lower bounds</div>
+                  </div>
+                </div>
+
+                <!-- Custom Budget Fields -->
+                <div class="custom-budget-container" id="customBudgetBox" style="display: none;">
+                  <div class="form-group">
+                    <label class="form-label" for="customMinBudget">Minimum Budget (₦)</label>
+                    <input type="number" id="customMinBudget" class="form-input" placeholder="e.g. 25000000" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="customMaxBudget">Maximum Budget (₦)</label>
+                    <input type="number" id="customMaxBudget" class="form-input" placeholder="e.g. 50000000" />
+                  </div>
+                </div>
+
+                <!-- City / Location Selector -->
+                <div class="form-group" style="margin-top: 1.5rem;">
+                  <label class="form-label" for="finderLocation">Preferred Showroom / Primary City</label>
+                  <select id="finderLocation" class="form-select">
+                    <option value="Enugu" selected>Enugu (Independence Layout Showroom)</option>
+                    <option value="Lagos">Lagos (Victoria Island Showroom)</option>
+                    <option value="Abuja">Abuja (Central Business District Showroom)</option>
+                    <option value="Port Harcourt">Port Harcourt (GRA Phase 2 Showroom)</option>
+                    <option value="Onitsha">Onitsha (Commercial District Showroom)</option>
+                    <option value="Owerri">Owerri (Bank Road Showroom)</option>
+                  </select>
+                </div>
+              </div>
+
+              <!-- STEP 2: Vehicle Type & Brand -->
+              <div class="finder-step-content" data-step="2">
+                <h3 class="step-title">What vehicle category and brand do you prefer?</h3>
+                <p class="step-desc">Choose the body profile that fits your driving habits and your preferred marques.</p>
+
+                <label class="form-label" style="margin-bottom: 0.75rem; display: block;">Vehicle Body Type</label>
+                <div class="option-grid option-grid-sm" style="margin-bottom: 2rem;">
+                  <div class="selectable-card selected" data-group="vehicleType" data-value="any">
+                    <div class="selectable-card-title">Any Type</div>
+                    <div class="selectable-card-sub">Open to all body profiles</div>
+                  </div>
+                  <div class="selectable-card" data-group="vehicleType" data-value="SUV">
+                    <div class="selectable-card-title">SUV</div>
+                    <div class="selectable-card-sub">Elevated stance & space</div>
+                  </div>
+                  <div class="selectable-card" data-group="vehicleType" data-value="Sedan">
+                    <div class="selectable-card-title">Sedan</div>
+                    <div class="selectable-card-sub">Sleek executive comfort</div>
+                  </div>
+                  <div class="selectable-card" data-group="vehicleType" data-value="Coupe">
+                    <div class="selectable-card-title">Coupe</div>
+                    <div class="selectable-card-sub">Sporting performance</div>
+                  </div>
+                  <div class="selectable-card" data-group="vehicleType" data-value="Pickup">
+                    <div class="selectable-card-title">Pickup</div>
+                    <div class="selectable-card-sub">Rugged utility & 4x4</div>
+                  </div>
+                  <div class="selectable-card" data-group="vehicleType" data-value="Crossover">
+                    <div class="selectable-card-title">Crossover</div>
+                    <div class="selectable-card-sub">Agile urban utility</div>
+                  </div>
+                </div>
+
+                <label class="form-label" style="margin-bottom: 0.75rem; display: block;">Brand Preference</label>
+                <div class="option-grid option-grid-sm">
+                  <div class="selectable-card selected" data-group="brand" data-value="any">
+                    <div class="selectable-card-title">Any Brand</div>
+                    <div class="selectable-card-sub">Focus on vehicle quality</div>
+                  </div>
+                  <div class="selectable-card" data-group="brand" data-value="Toyota">
+                    <div class="selectable-card-title">Toyota</div>
+                    <div class="selectable-card-sub">Legendary dependability</div>
+                  </div>
+                  <div class="selectable-card" data-group="brand" data-value="Lexus">
+                    <div class="selectable-card-title">Lexus</div>
+                    <div class="selectable-card-sub">Refined Japanese luxury</div>
+                  </div>
+                  <div class="selectable-card" data-group="brand" data-value="Mercedes-Benz">
+                    <div class="selectable-card-title">Mercedes-Benz</div>
+                    <div class="selectable-card-sub">German prestige & engineering</div>
+                  </div>
+                  <div class="selectable-card" data-group="brand" data-value="BMW">
+                    <div class="selectable-card-title">BMW</div>
+                    <div class="selectable-card-sub">Dynamic driving precision</div>
+                  </div>
+                  <div class="selectable-card" data-group="brand" data-value="Range Rover">
+                    <div class="selectable-card-title">Range Rover</div>
+                    <div class="selectable-card-sub">British peerless presence</div>
+                  </div>
+                  <div class="selectable-card" data-group="brand" data-value="Porsche">
+                    <div class="selectable-card-title">Porsche</div>
+                    <div class="selectable-card-sub">Pure motorsport heritage</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 3: Main Purpose & Lifestyle -->
+              <div class="finder-step-content" data-step="3">
+                <h3 class="step-title">How will this vehicle primarily be used?</h3>
+                <p class="step-desc">Selecting your intended use helps us evaluate ground clearance, seating capacity, and mechanical characteristics.</p>
+
+                <div class="option-grid">
+                  <div class="selectable-card selected" data-group="purpose" data-value="family">
+                    <div class="selectable-card-title">Family Use</div>
+                    <div class="selectable-card-sub">Generous seating, safety, and cargo room for road trips</div>
+                  </div>
+                  <div class="selectable-card" data-group="purpose" data-value="daily-driving">
+                    <div class="selectable-card-title">Daily Driving</div>
+                    <div class="selectable-card-sub">Urban ease, efficient running, and effortless daily commuting</div>
+                  </div>
+                  <div class="selectable-card" data-group="purpose" data-value="business">
+                    <div class="selectable-card-title">Business & Executive</div>
+                    <div class="selectable-card-sub">Professional stature, executive rear legroom, quiet cabin</div>
+                  </div>
+                  <div class="selectable-card" data-group="purpose" data-value="long-distance">
+                    <div class="selectable-card-title">Long-Distance Travel</div>
+                    <div class="selectable-card-sub">Heavy-duty suspension, long fuel range, highway poise</div>
+                  </div>
+                  <div class="selectable-card" data-group="purpose" data-value="luxury">
+                    <div class="selectable-card-title">Luxury & Prestige</div>
+                    <div class="selectable-card-sub">Handcrafted interiors, authoritative status, finest finishes</div>
+                  </div>
+                  <div class="selectable-card" data-group="purpose" data-value="performance">
+                    <div class="selectable-card-title">Performance Driving</div>
+                    <div class="selectable-card-sub">Responsive powertrain, sharp cornering, sports dynamics</div>
+                  </div>
+                  <div class="selectable-card" data-group="purpose" data-value="first-car">
+                    <div class="selectable-card-title">First Car Ownership</div>
+                    <div class="selectable-card-sub">Low running costs, readily available parts, simple upkeep</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 4: Transmission, Fuel & Key Priorities -->
+              <div class="finder-step-content" data-step="4">
+                <h3 class="step-title">Powertrain and key priorities</h3>
+                <p class="step-desc">Specify mechanical preferences and the features that matter most to you.</p>
+
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin-bottom: 2rem;">
+                  <div class="form-group">
+                    <label class="form-label">Transmission</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                      <div class="selectable-card selected" style="flex: 1;" data-group="transmission" data-value="any">
+                        <div class="selectable-card-title">Any</div>
+                      </div>
+                      <div class="selectable-card" style="flex: 1;" data-group="transmission" data-value="Automatic">
+                        <div class="selectable-card-title">Automatic</div>
+                      </div>
+                      <div class="selectable-card" style="flex: 1;" data-group="transmission" data-value="Manual">
+                        <div class="selectable-card-title">Manual</div>
+                      </div>
+                    </div>
+                  </div>
+
+                  <div class="form-group">
+                    <label class="form-label">Fuel Type</label>
+                    <div style="display: flex; gap: 0.5rem;">
+                      <div class="selectable-card selected" style="flex: 1;" data-group="fuel" data-value="any">
+                        <div class="selectable-card-title">Any</div>
+                      </div>
+                      <div class="selectable-card" style="flex: 1;" data-group="fuel" data-value="Petrol">
+                        <div class="selectable-card-title">Petrol</div>
+                      </div>
+                      <div class="selectable-card" style="flex: 1;" data-group="fuel" data-value="Diesel">
+                        <div class="selectable-card-title">Diesel</div>
+                      </div>
+                      <div class="selectable-card" style="flex: 1;" data-group="fuel" data-value="Hybrid">
+                        <div class="selectable-card-title">Hybrid</div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <label class="form-label" style="margin-bottom: 0.75rem; display: block;">Important Attributes (Choose any that matter)</label>
+                <div class="option-grid option-grid-sm">
+                  <div class="selectable-card" data-group="features" data-value="Space & Comfort">
+                    <div class="selectable-card-title">Space & Comfort</div>
+                    <div class="selectable-card-sub">Spacious 5/7-seat cabin</div>
+                  </div>
+                  <div class="selectable-card" data-group="features" data-value="Ground Clearance">
+                    <div class="selectable-card-title">Ground Clearance</div>
+                    <div class="selectable-card-sub">High clearance for Nigerian roads</div>
+                  </div>
+                  <div class="selectable-card" data-group="features" data-value="Low Maintenance">
+                    <div class="selectable-card-title">Low Maintenance</div>
+                    <div class="selectable-card-sub">Widespread parts availability</div>
+                  </div>
+                  <div class="selectable-card" data-group="features" data-value="Prestige Presence">
+                    <div class="selectable-card-title">Prestige Presence</div>
+                    <div class="selectable-card-sub">Executive road authority</div>
+                  </div>
+                  <div class="selectable-card" data-group="features" data-value="Fuel Efficiency">
+                    <div class="selectable-card-title">Fuel Efficiency</div>
+                    <div class="selectable-card-sub">Optimized mileage per liter</div>
+                  </div>
+                  <div class="selectable-card" data-group="features" data-value="Advanced Tech">
+                    <div class="selectable-card-title">Advanced Tech</div>
+                    <div class="selectable-card-sub">CarPlay, 360 cameras, audio</div>
+                  </div>
+                </div>
+              </div>
+
+              <!-- STEP 5: Consultation Details -->
+              <div class="finder-step-content" data-step="5">
+                <h3 class="step-title">Personalize your recommendation</h3>
+                <p class="step-desc">Provide your contact details so our Senior Sales Advisor can formulate your personalized consultation and prepare available viewing dates.</p>
+
+                <div style="display: grid; grid-template-columns: 1fr; gap: 1.25rem; max-width: 600px; margin-bottom: 1.5rem;">
+                  <div class="form-group">
+                    <label class="form-label" for="clientName">Full Name</label>
+                    <input type="text" id="clientName" class="form-input" placeholder="e.g. David Okafor" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="clientPhone">Phone Number / WhatsApp</label>
+                    <input type="tel" id="clientPhone" class="form-input" placeholder="e.g. 0803 123 4567" />
+                  </div>
+                  <div class="form-group">
+                    <label class="form-label" for="clientEmail">Email Address</label>
+                    <input type="email" id="clientEmail" class="form-input" placeholder="e.g. david.okafor@example.com" />
+                  </div>
+                </div>
+                <p style="font-size: 0.75rem; color: var(--text-dim);">
+                  We respect your privacy. Your details are solely utilized to prepare your vehicle consultation and viewing itinerary.
+                </p>
+              </div>
+
+              <!-- Stepper Navigation Buttons -->
+              <div class="finder-actions">
+                <button class="btn btn-outline btn-sm" id="prevStepBtn" style="visibility: hidden;">← Back</button>
+                <button class="btn btn-primary" id="nextStepBtn">
+                  <span>Continue</span> →
+                </button>
+              </div>
+            </div>
+
+            <!-- Loading Concierge Transition -->
+            <div class="finder-loading-state" id="finderLoadingState">
+              <div class="finder-spinner"></div>
+              <h3 class="finder-loading-title">Evaluating Current Inventory</h3>
+              <p class="finder-loading-sub">
+                Analyzing mechanical fitness, seating, terrain suitability, and pricing alignment across our showrooms...
+              </p>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         RESULTS SECTION: "YOUR MATCHES"
+         ======================================================================= -->
+    <section class="results-section section-padding" id="resultsSection">
+      <div class="container">
+        <div class="section-header">
+          <span class="section-tag">Curated Recommendations</span>
+          <h2 class="section-title">Your Matches</h2>
+          <p class="section-subtitle" id="resultsStatusMessage">
+            Based on what you told us, these vehicles are worth a closer look.
+          </p>
+        </div>
+
+        <div class="results-status-banner">
+          <div class="results-status-info">
+            <span class="results-status-badge" id="resultsCountBadge">Curated Matches</span>
+            <span class="results-status-text">Each vehicle has undergone our certified multi-point mechanical inspection.</span>
+          </div>
+          <button class="btn btn-outline btn-sm" onclick="window.scrollTo({top: 0, behavior: 'smooth'});">Refine Search Criteria</button>
+        </div>
+
+        <div id="resultsGrid">
+          <!-- Populated dynamically by app.js without badges -->
+        </div>
+      </div>
+    </section>
+
+    <!-- =======================================================================
+         PERSONALIZED SALES FOLLOW-UP SECTION
+         ======================================================================= -->
+    <section class="followup-section section-padding" id="followupSection" style="display: none;">
+      <div class="container container-narrow">
+        <div class="followup-wrapper">
+          <div class="followup-header">
+            <div class="consultant-avatar" id="consultantAvatar">EN</div>
+            <div class="consultant-info">
+              <h3 class="consultant-name" id="consultantName">Emeka Nwosu</h3>
+              <span class="consultant-title" id="consultantTitle">Senior Client Advisor</span>
+              <span class="consultant-showroom" id="consultantShowroom">Independence Layout Showroom, Enugu</span>
+            </div>
+          </div>
+
+          <div class="personalized-letter">
+            <p id="personalizedLetterText">
+              <!-- Personalized letter generated by Stage 3 (Agent 3) -->
+            </p>
+          </div>
+
+          <div style="margin-bottom: 2rem;">
+            <h4 style="font-size: 1.15rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Ready to take a closer look?</h4>
+            <p style="font-size: 0.875rem; color: #A1A1AA;">Choose how you would like to proceed with your vehicle inquiry:</p>
+          </div>
+
+          <div class="followup-actions-grid">
+            <div class="followup-action-card">
+              <h5 class="followup-action-title">Request a Viewing</h5>
+              <p class="followup-action-desc">Schedule a private inspection and test drive at our regional showroom.</p>
+              <button class="btn btn-primary btn-sm" id="actionBookViewing">Schedule Viewing</button>
+            </div>
+
+            <div class="followup-action-card">
+              <h5 class="followup-action-title">Talk to a Specialist</h5>
+              <p class="followup-action-desc">Direct WhatsApp or phone consultation with your assigned client advisor.</p>
+              <button class="btn btn-outline btn-sm" id="actionTalkSpecialist">Open Direct Line</button>
+            </div>
+
+            <div class="followup-action-card">
+              <h5 class="followup-action-title">Get More Information</h5>
+              <p class="followup-action-desc">Review full Carfax inspection logs, provenance report, and complete option list.</p>
+              <button class="btn btn-outline btn-sm" id="actionGetInfo">View Full Specs</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </main>
+
+  <!-- =======================================================================
+       FOOTER
+       ======================================================================= -->
+  <footer class="site-footer">
+    <div class="container">
+      <div class="footer-top">
+        <div>
+          <div class="brand-logo">
+            <div class="brand-emblem">S</div>
+            <div class="brand-text">
+              <span class="brand-name">Sterling Autos</span>
+              <span class="brand-sub">Intelligent Car Sales Platform</span>
+            </div>
+          </div>
+          <p class="footer-brand-statement">
+            Find your next car with confidence.
+          </p>
+        </div>
+
+        <div class="footer-links-group">
+          <div>
+            <div class="footer-col-title">Navigation</div>
+            <ul class="footer-nav-list">
+              <li class="footer-nav-item"><a href="index.html">Home</a></li>
+              <li class="footer-nav-item"><a href="vehicles.html">Vehicles Inventory</a></li>
+              <li class="footer-nav-item"><a href="find-your-car.html">Find Your Car</a></li>
+              <li class="footer-nav-item"><a href="about.html">About Dealership</a></li>
+              <li class="footer-nav-item"><a href="contact.html">Contact Showrooms</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Showrooms</div>
+            <ul class="footer-nav-list">
+              <li class="footer-nav-item"><a href="contact.html">Enugu (Independence Layout)</a></li>
+              <li class="footer-nav-item"><a href="contact.html">Lagos (Victoria Island)</a></li>
+              <li class="footer-nav-item"><a href="contact.html">Abuja (Central District)</a></li>
+              <li class="footer-nav-item"><a href="contact.html">Port Harcourt (GRA)</a></li>
+              <li class="footer-nav-item"><a href="contact.html">Onitsha Commercial</a></li>
+            </ul>
+          </div>
+
+          <div>
+            <div class="footer-col-title">Legal & Provenance</div>
+            <ul class="footer-nav-list">
+              <li class="footer-nav-item"><a href="about.html">150-Point Inspection</a></li>
+              <li class="footer-nav-item"><a href="about.html">Title Verification</a></li>
+              <li class="footer-nav-item"><a href="about.html">Privacy Standards</a></li>
+              <li class="footer-nav-item"><a href="about.html">Terms of Sale</a></li>
+            </ul>
+          </div>
+        </div>
+      </div>
+
+      <div class="footer-bottom">
+        <div>
+          © 2026 Sterling Autos Nigeria Ltd. All specifications and vehicle data verified for prototype demonstration.
+        </div>
+        <div>
+          Prices quoted in Nigerian Naira (₦). Inspection appointments subject to showroom confirmation.
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <!-- =======================================================================
+       MODAL: VEHICLE SPECIFICATIONS & GALLERY
+       ======================================================================= -->
+  <div class="modal-overlay" id="vehicleModal">
+    <div class="modal-container">
+      <button class="modal-close-btn" aria-label="Close Vehicle Details Modal">✕</button>
+      <div class="modal-gallery-main">
+        <img src="" alt="Vehicle image" id="modalVehicleImg" />
+      </div>
+      <div class="modal-body-content">
+        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
+          <div>
+            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);" id="modalVehicleMakeYear">Make & Year</div>
+            <h2 style="font-size: 1.85rem; font-weight: 700; color: #FFFFFF;" id="modalVehicleTitle">Vehicle Model</h2>
+          </div>
+          <div style="font-size: 1.75rem; font-weight: 800; color: #FFFFFF;" id="modalVehiclePrice">₦0</div>
+        </div>
+
+        <p style="font-size: 0.95rem; line-height: 1.7; color: #D4D4D8; margin-bottom: 1.5rem;" id="modalVehicleDescription">
+          Vehicle description overview...
+        </p>
+
+        <h4 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--metallic-silver); margin-top: 1.5rem; margin-bottom: 0.75rem;">
+          Technical Specifications
+        </h4>
+        <table class="modal-spec-table" id="modalSpecsTable">
+          <!-- Populated by JS -->
+        </table>
+
+        <h4 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--metallic-silver); margin-top: 1.5rem; margin-bottom: 0.75rem;">
+          Standard & Optional Equipment
+        </h4>
+        <ul id="modalFeaturesList" style="list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 2rem;">
+          <!-- Populated by JS -->
+        </ul>
+
+        <div style="display: flex; gap: 1rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+          <button class="btn btn-primary" id="modalBookViewingBtn">Book a Viewing</button>
+          <button class="btn btn-outline close-modal-trigger">Close Window</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       MODAL: BOOK A VIEWING
+       ======================================================================= -->
+  <div class="modal-overlay" id="bookingModal">
+    <div class="modal-container" style="max-width: 600px;">
+      <button class="modal-close-btn" aria-label="Close Booking Modal">✕</button>
+      <div class="modal-body-content">
+        <div id="bookingFormBody">
+          <span class="section-tag">Private Appointment</span>
+          <h2 style="font-size: 1.65rem; font-weight: 700; color: #FFFFFF; margin-bottom: 0.5rem;">Book a Viewing</h2>
+          <p style="font-size: 0.875rem; color: #A1A1AA; margin-bottom: 1.5rem;">
+            Schedule a dedicated vehicle walkthrough with our senior client desk.
+          </p>
+
+          <form id="bookingForm">
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label" for="bookingVehicleSelect">Select Vehicle</label>
+              <select id="bookingVehicleSelect" class="form-select">
+                <!-- Populated by JS -->
+              </select>
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+              <div class="form-group">
+                <label class="form-label" for="bookingName">Your Name</label>
+                <input type="text" id="bookingName" class="form-input" required placeholder="Full Name" />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bookingPhone">Phone / WhatsApp</label>
+                <input type="tel" id="bookingPhone" class="form-input" required placeholder="Phone Number" />
+              </div>
+            </div>
+
+            <div class="form-group" style="margin-bottom: 1rem;">
+              <label class="form-label" for="bookingEmail">Email Address</label>
+              <input type="email" id="bookingEmail" class="form-input" required placeholder="Email Address" />
+            </div>
+
+            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+              <div class="form-group">
+                <label class="form-label" for="bookingDate">Preferred Date</label>
+                <input type="date" id="bookingDate" class="form-input" required />
+              </div>
+              <div class="form-group">
+                <label class="form-label" for="bookingTime">Preferred Time</label>
+                <select id="bookingTime" class="form-select">
+                  <option value="10:00 AM">Morning (10:00 AM)</option>
+                  <option value="12:00 PM">Midday (12:00 PM)</option>
+                  <option value="02:30 PM">Afternoon (02:30 PM)</option>
+                  <option value="04:30 PM">Late Afternoon (04:30 PM)</option>
+                </select>
+              </div>
+            </div>
+
+            <button type="submit" class="btn btn-primary" style="width: 100%;">Request Viewing</button>
+          </form>
+        </div>
+
+        <div class="booking-confirmed-box" id="bookingConfirmedBox">
+          <!-- Populated upon submission -->
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- =======================================================================
+       TECHNICAL AUDIT INSPECTOR (DISCREET SIDE DRAWER)
+       ======================================================================= -->
+  <button class="pipeline-inspector-trigger" id="inspectorTrigger" title="Inspect Automated Sales Workflow Pipeline Telemetry">
+    <span>⚡</span>
+    <span>Sales Workflow Architecture</span>
+  </button>
+
+  <aside class="pipeline-inspector-drawer" id="inspectorDrawer">
+    <div class="inspector-header">
+      <div>
+        <div class="inspector-title">Automated Sales Pipeline</div>
+        <div style="font-size: 0.7rem; color: var(--metallic-silver); margin-top: 2px;">
+          Sequential 3-Agent Execution Telemetry (<span id="inspectorExecTime">0ms</span>)
+        </div>
+      </div>
+      <button id="closeInspectorBtn" style="color: #fff; font-size: 1.25rem;">✕</button>
+    </div>
+
+    <div class="inspector-body">
+      <!-- Stage 1 -->
+      <div class="inspector-stage">
+        <div class="inspector-stage-tag">Stage 1 (Agent 1)</div>
+        <div class="inspector-stage-title">Requirement Analysis & Profile Extraction</div>
+        <p style="font-size: 0.75rem; color: #a1a1aa; margin-bottom: 0.5rem;">
+          Normalizes raw form inputs, bounds budget in Naira, determines driver lifestyle persona and weighted priority vectors.
+        </p>
+        <pre class="inspector-code" id="inspectorStage1Code">// Awaiting customer submission...</pre>
+      </div>
+
+      <!-- Stage 2 -->
+      <div class="inspector-stage">
+        <div class="inspector-stage-tag">Stage 2 (Agent 2)</div>
+        <div class="inspector-stage-title">Inventory Multi-Factor Scoring & Reasoning</div>
+        <p style="font-size: 0.75rem; color: #a1a1aa; margin-bottom: 0.5rem;">
+          Evaluates all 15 inventory models across 6 genuine mathematical fitness pillars and synthesizes contextual "Why it fits" justifications.
+        </p>
+        <pre class="inspector-code" id="inspectorStage2Code">// Awaiting customer submission...</pre>
+      </div>
+
+      <!-- Stage 3 -->
+      <div class="inspector-stage">
+        <div class="inspector-stage-tag">Stage 3 (Agent 3)</div>
+        <div class="inspector-stage-title">Personalized Follow-Up & Concierge Synthesis</div>
+        <p style="font-size: 0.75rem; color: #a1a1aa; margin-bottom: 0.5rem;">
+          Assigns local showroom senior advisor, drafts bespoke executive letter referencing exact customer criteria, and composes one-click inquiry drafts.
+        </p>
+        <pre class="inspector-code" id="inspectorStage3Code">// Awaiting customer submission...</pre>
+      </div>
+    </div>
+  </aside>
+
+  <!-- Script Modules -->
+  <script src="js/vehicles-data.js"></script>
+  <script src="js/sales-workflow.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>

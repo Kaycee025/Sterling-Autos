@@ -257,17 +257,16 @@ document.addEventListener("DOMContentLoaded", () => {
       <article class="vehicle-card" data-vehicle-id="${v.id}">
         <div class="vehicle-card-media">
           <img src="${v.image}" alt="${v.year} ${v.make} ${v.model}" class="vehicle-card-image" loading="lazy" />
-          <span class="vehicle-card-badge">${v.bodyType}</span>
-          <span class="vehicle-card-location">${v.location}</span>
         </div>
         <div class="vehicle-card-body">
-          <div class="vehicle-card-make-year">${v.year} · ${v.make}</div>
+          <div class="vehicle-card-make-year">${v.year} · ${v.make} · ${v.bodyType}</div>
           <h3 class="vehicle-card-title">${v.model}</h3>
           <div class="vehicle-card-price">${v.priceFormatted}</div>
           <div class="vehicle-card-specs">
             <span class="spec-item">${v.transmission}</span>
             <span class="spec-item">${v.fuel}</span>
             <span class="spec-item">${v.mileageFormatted}</span>
+            <span class="spec-item">${v.location}</span>
           </div>
           <div class="vehicle-card-actions">
             <button class="btn btn-outline btn-sm view-details-btn" data-id="${v.id}">View Details</button>
@@ -465,13 +464,11 @@ document.addEventListener("DOMContentLoaded", () => {
         <article class="match-card">
           <div class="match-card-media">
             <img src="${v.image}" alt="${v.year} ${v.make} ${v.model}" class="match-card-image" />
-            <span class="vehicle-card-badge">${v.bodyType}</span>
-            <span class="vehicle-card-location">${v.location} Showroom</span>
           </div>
           <div class="match-card-content">
             <div class="match-card-top">
               <div>
-                <div class="vehicle-card-make-year">${v.year} · ${v.make}</div>
+                <div class="vehicle-card-make-year">${v.year} · ${v.make} · ${v.bodyType}</div>
                 <h3 class="match-card-title">${v.model}</h3>
               </div>
               <div class="match-card-price">${v.priceFormatted}</div>

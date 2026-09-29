@@ -1722,3 +1722,35 @@ button {
     font-size: 0.65rem;
   }
 }
+
+/* ==========================================================================
+   DEDICATED PAGE HERO BANNERS & BADGE SUPPRESSION
+   ========================================================================== */
+.vehicle-card-badge,
+.vehicle-card-location {
+  display: none !important;
+}
+
+.page-hero {
+  padding-top: 140px;
+  padding-bottom: 60px;
+  background: linear-gradient(180deg, #0d0d10 0%, var(--bg-black) 100%);
+  border-bottom: 1px solid var(--border-subtle);
+}
+
+.page-hero-title {
+  font-size: 3rem;
+  font-weight: 800;
+  letter-spacing: -0.02em;
+  color: var(--text-pure-white);
+  line-height: 1.15;
+  margin-bottom: 1rem;
+}
+
+.page-hero-sub {
+  font-size: 1.15rem;
+  color: var(--text-muted);
+  max-width: 680px;
+  line-height: 1.6;
+}
+
