@@ -73,9 +73,6 @@ document.addEventListener("DOMContentLoaded", () => {
   // Modals
   const vehicleModal = document.getElementById("vehicleModal");
   const bookingModal = document.getElementById("bookingModal");
-  const inspectorDrawer = document.getElementById("inspectorDrawer");
-  const inspectorTrigger = document.getElementById("inspectorTrigger");
-  const closeInspectorBtn = document.getElementById("closeInspectorBtn");
 
   // ===============================================================
   // 1. NAVIGATION & SCROLL BEHAVIOR
@@ -292,14 +289,6 @@ document.addEventListener("DOMContentLoaded", () => {
       });
     });
 
-    // Interactive card spotlight tracking
-    container.querySelectorAll(".vehicle-card").forEach(card => {
-      card.addEventListener("mousemove", (e) => {
-        const rect = card.getBoundingClientRect();
-        card.style.setProperty("--card-mouse-x", `${e.clientX - rect.left}px`);
-        card.style.setProperty("--card-mouse-y", `${e.clientY - rect.top}px`);
-      });
-    });
   }
 
   // ===============================================================
@@ -445,7 +434,6 @@ document.addEventListener("DOMContentLoaded", () => {
     // Render matches and follow-up
     renderMatchResults(results);
     renderFollowUpSection(results);
-    updateInspectorDrawer(results.telemetry);
 
     // Smooth scroll to results
     if (resultsSection) {
@@ -702,80 +690,9 @@ document.addEventListener("DOMContentLoaded", () => {
     });
   });
 
-  // ===============================================================
-  // 11. TECHNICAL AUDIT INSPECTOR DRAWER
-  // Demonstrates the 3-Agent connected pipeline telemetry
-  // ===============================================================
-  function initInspector() {
-    if (inspectorTrigger && inspectorDrawer) {
-      inspectorTrigger.addEventListener("click", () => {
-        inspectorDrawer.classList.add("open");
-      });
-    }
-    if (closeInspectorBtn && inspectorDrawer) {
-      closeInspectorBtn.addEventListener("click", () => {
-        inspectorDrawer.classList.remove("open");
-      });
-    }
-  }
-
-  function updateInspectorDrawer(telemetry) {
-    if (!telemetry) return;
-    const stage1El = document.getElementById("inspectorStage1Code");
-    const stage2El = document.getElementById("inspectorStage2Code");
-    const stage3El = document.getElementById("inspectorStage3Code");
-    const execTimeEl = document.getElementById("inspectorExecTime");
-
-    if (execTimeEl) execTimeEl.textContent = `${telemetry.durationMs}ms`;
-    if (stage1El) stage1El.textContent = JSON.stringify(telemetry.stage1_Profile, null, 2);
-    if (stage2El) {
-      stage2El.textContent = JSON.stringify({
-        status: telemetry.stage2_Matching.status,
-        totalEvaluated: telemetry.stage2_Matching.totalEvaluated,
-        recommendations: telemetry.stage2_Matching.recommendations.map(r => ({
-          model: `${r.vehicle.year} ${r.vehicle.make} ${r.vehicle.model}`,
-          price: r.vehicle.priceFormatted,
-          compositeScore: r.score,
-          breakdown: r.breakdown,
-          whyItFitsSnippet: r.whyItFits
-        }))
-      }, null, 2);
-    }
-    if (stage3El) stage3El.textContent = JSON.stringify(telemetry.stage3_FollowUp, null, 2);
-  }
-
   // Global triggers
   window.openBookingModal = openBookingModal;
   window.openVehicleModal = openVehicleModal;
-
-  // ===============================================================
-  // 12. SCROLL-TRIGGERED REVEAL OBSERVER
-  // Smoothly reveals elements as user traverses the showroom
-  // ===============================================================
-  function initScrollRevealObserver() {
-    const targets = document.querySelectorAll(".section-header, .vehicle-card, .trust-item, .about-grid, .showroom-card, .finder-card, .followup-wrapper");
-    targets.forEach((el, i) => {
-      el.classList.add("reveal-on-scroll");
-      if (el.classList.contains("vehicle-card") || el.classList.contains("trust-item")) {
-        const delay = (i % 4) * 80;
-        el.style.transitionDelay = `${delay}ms`;
-      }
-    });
-
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          entry.target.classList.add("is-revealed");
-          observer.unobserve(entry.target);
-        }
-      });
-    }, {
-      threshold: 0.12,
-      rootMargin: "0px 0px -40px 0px"
-    });
-
-    targets.forEach(el => observer.observe(el));
-  }
 
   // Header "Book a Viewing" button
   const headerBookingBtn = document.getElementById("headerBookViewingBtn");
@@ -788,6 +705,4 @@ document.addEventListener("DOMContentLoaded", () => {
   initCatalogFilters();
   renderCatalog();
   initFinderFlow();
-  initInspector();
-  initScrollRevealObserver();
 });

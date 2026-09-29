@@ -336,20 +336,7 @@ button {
   border: 1px solid var(--text-pure-white);
 }
 
-.btn-primary::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: -120%;
-  width: 100%;
-  height: 100%;
-  background: linear-gradient(90deg, transparent, rgba(255, 255, 255, 0.45), transparent);
-  transition: left 0.7s cubic-bezier(0.16, 1, 0.3, 1);
-}
 
-.btn-primary:hover::before {
-  left: 120%;
-}
 
 .btn:hover {
   transform: translateY(-2px);
@@ -475,61 +462,36 @@ button {
   margin-bottom: 1.5rem;
 }
 
-.hero-line {
+.hero-title-line {
   display: block;
   overflow: hidden;
-  padding-bottom: 6px;
+  padding-bottom: 4px;
 }
 
-.hero-word {
-  display: inline-block;
-  transform: translateY(115%) rotate(1.5deg);
+.hero-title-text {
+  display: block;
   opacity: 0;
-  animation: heroWordEntrance 0.85s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  transform: translateY(105%);
+  animation: heroLineRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
   will-change: transform, opacity;
 }
 
-.hero-line:nth-child(1) .hero-word:nth-child(1) { animation-delay: 0.12s; }
-.hero-line:nth-child(1) .hero-word:nth-child(2) { animation-delay: 0.22s; }
-.hero-line:nth-child(1) .hero-word:nth-child(3) { animation-delay: 0.32s; }
-.hero-line:nth-child(2) .hero-word:nth-child(1) { animation-delay: 0.44s; }
-.hero-line:nth-child(2) .hero-word:nth-child(2) { animation-delay: 0.54s; }
-.hero-line:nth-child(2) .hero-word:nth-child(3) { animation-delay: 0.64s; }
+.hero-title-line:nth-child(1) .hero-title-text {
+  animation-delay: 0.15s;
+}
 
-@keyframes heroWordEntrance {
+.hero-title-line:nth-child(2) .hero-title-text {
+  animation-delay: 0.35s;
+}
+
+@keyframes heroLineRise {
   0% {
-    transform: translateY(115%) rotate(2deg);
     opacity: 0;
+    transform: translateY(105%);
   }
   100% {
-    transform: translateY(0) rotate(0deg);
     opacity: 1;
-  }
-}
-
-/* Metallic Light Sheen Sweep */
-.text-sheen {
-  background: linear-gradient(
-    110deg,
-    #ffffff 20%,
-    #a1a1aa 40%,
-    #ffffff 50%,
-    #e4e4e7 60%,
-    #ffffff 80%
-  );
-  background-size: 200% auto;
-  color: #fff;
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
-  animation: sheenAnimation 5s ease-in-out infinite;
-}
-
-@keyframes sheenAnimation {
-  0%, 60% {
-    background-position: 200% center;
-  }
-  100% {
-    background-position: -200% center;
+    transform: translateY(0);
   }
 }
 
@@ -539,9 +501,6 @@ button {
   line-height: 1.6;
   max-width: 620px;
   margin-bottom: 2.5rem;
-  opacity: 0;
-  transform: translateY(18px);
-  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.75s;
 }
 
 .hero-cta-group {
@@ -549,12 +508,9 @@ button {
   align-items: center;
   gap: 1.25rem;
   flex-wrap: wrap;
-  opacity: 0;
-  transform: translateY(18px);
-  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 0.9s;
 }
 
-/* Trust Bar with Stagger Entrance */
+/* Trust Bar */
 .trust-strip {
   position: relative;
   z-index: 3;
@@ -564,16 +520,6 @@ button {
   display: flex;
   gap: 4.5rem;
   flex-wrap: wrap;
-  opacity: 0;
-  transform: translateY(18px);
-  animation: heroFadeUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards 1.05s;
-}
-
-@keyframes heroFadeUp {
-  to {
-    opacity: 1;
-    transform: translateY(0);
-  }
 }
 
 /* Hero Slider Nav Controls */
@@ -613,7 +559,7 @@ button {
   gap: 2rem;
 }
 
-/* Vehicle Card with Interactive Spotlight & Lift */
+/* Vehicle Card */
 .vehicle-card {
   background-color: var(--bg-card);
   border: 1px solid var(--border-subtle);
@@ -621,35 +567,12 @@ button {
   overflow: hidden;
   display: flex;
   flex-direction: column;
-  transition: transform 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              border-color 0.4s cubic-bezier(0.16, 1, 0.3, 1), 
-              box-shadow 0.4s cubic-bezier(0.16, 1, 0.3, 1);
+  transition: border-color var(--transition-fast);
   position: relative;
 }
 
-.vehicle-card::before {
-  content: '';
-  position: absolute;
-  top: var(--card-mouse-y, -300px);
-  left: var(--card-mouse-x, -300px);
-  width: 400px;
-  height: 400px;
-  background: radial-gradient(circle, rgba(255, 255, 255, 0.08) 0%, rgba(255, 255, 255, 0.02) 40%, transparent 70%);
-  transform: translate(-50%, -50%);
-  pointer-events: none;
-  opacity: 0;
-  transition: opacity 0.35s ease;
-  z-index: 4;
-}
-
-.vehicle-card:hover::before {
-  opacity: 1;
-}
-
 .vehicle-card:hover {
-  transform: translateY(-8px) scale(1.008);
-  border-color: rgba(255, 255, 255, 0.32);
-  box-shadow: 0 24px 50px rgba(0, 0, 0, 0.8), 0 0 0 1px rgba(255, 255, 255, 0.08);
+  border-color: var(--border-strong);
 }
 
 .vehicle-card-media {
@@ -1641,118 +1564,7 @@ button {
   text-align: center;
 }
 
-/* ==========================================================================
-   TECHNICAL AUDIT / PIPELINE INSPECTOR (COLLAPSIBLE DRAWER)
-   Reveals 3-Agent connected pipeline for technical assessment while
-   keeping customer UI 100% natural & pristine.
-   ========================================================================== */
-.pipeline-inspector-trigger {
-  position: fixed;
-  bottom: 1.5rem;
-  right: 1.5rem;
-  z-index: 90;
-  background: rgba(14, 14, 18, 0.95);
-  border: 1px solid var(--border-strong);
-  color: var(--metallic-silver);
-  padding: 0.55rem 1.15rem;
-  border-radius: var(--radius-xs);
-  font-size: 0.725rem;
-  font-weight: 600;
-  letter-spacing: 0.08em;
-  text-transform: uppercase;
-  display: flex;
-  align-items: center;
-  gap: 0.5rem;
-  box-shadow: 0 8px 24px rgba(0, 0, 0, 0.6);
-  backdrop-filter: blur(8px);
-  transition: all var(--transition-fast);
-}
 
-.pipeline-inspector-trigger:hover {
-  background: #222228;
-  color: var(--text-pure-white);
-  border-color: var(--text-pure-white);
-}
-
-.pipeline-inspector-drawer {
-  position: fixed;
-  top: 0;
-  right: -550px;
-  width: 520px;
-  max-width: 90vw;
-  height: 100vh;
-  background: #0d0d10;
-  border-left: 1px solid var(--border-medium);
-  z-index: 1050;
-  box-shadow: -10px 0 40px rgba(0, 0, 0, 0.8);
-  transition: right var(--transition-normal);
-  display: flex;
-  flex-direction: column;
-  overflow: hidden;
-}
-
-.pipeline-inspector-drawer.open {
-  right: 0;
-}
-
-.inspector-header {
-  padding: 1.5rem;
-  border-bottom: 1px solid var(--border-subtle);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-}
-
-.inspector-title {
-  font-size: 0.95rem;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  color: var(--text-pure-white);
-}
-
-.inspector-body {
-  padding: 1.5rem;
-  overflow-y: auto;
-  flex-grow: 1;
-}
-
-.inspector-stage {
-  background: var(--bg-surface);
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xs);
-  padding: 1.25rem;
-  margin-bottom: 1.25rem;
-}
-
-.inspector-stage-tag {
-  font-size: 0.675rem;
-  font-weight: 700;
-  letter-spacing: 0.12em;
-  text-transform: uppercase;
-  color: var(--accent-red);
-  margin-bottom: 0.35rem;
-}
-
-.inspector-stage-title {
-  font-size: 0.9rem;
-  font-weight: 700;
-  color: var(--text-pure-white);
-  margin-bottom: 0.5rem;
-}
-
-.inspector-code {
-  background: #080809;
-  border: 1px solid var(--border-subtle);
-  padding: 0.75rem;
-  font-family: monospace;
-  font-size: 0.725rem;
-  color: #a1a1aa;
-  white-space: pre-wrap;
-  word-break: break-all;
-  border-radius: var(--radius-xs);
-  max-height: 180px;
-  overflow-y: auto;
-}
 
 /* ==========================================================================
    RESPONSIVE DESIGN (TABLET & MOBILE)
@@ -1823,12 +1635,7 @@ button {
   .followup-wrapper {
     padding: 1.5rem;
   }
-  .pipeline-inspector-trigger {
-    bottom: 0.75rem;
-    right: 0.75rem;
-    padding: 0.45rem 0.85rem;
-    font-size: 0.65rem;
-  }
+
 }
 
 /* ==========================================================================
@@ -1862,49 +1669,6 @@ button {
   line-height: 1.6;
 }
 
-/* ==========================================================================
-   SCROLL REVEAL & MICRO-ANIMATION UTILITIES
-   ========================================================================== */
-.reveal-on-scroll {
-  opacity: 0;
-  transform: translateY(28px);
-  transition: opacity 0.75s cubic-bezier(0.16, 1, 0.3, 1), 
-              transform 0.75s cubic-bezier(0.16, 1, 0.3, 1);
-  will-change: opacity, transform;
-}
 
-.reveal-on-scroll.is-revealed {
-  opacity: 1;
-  transform: translateY(0);
-}
-
-.delay-100 { transition-delay: 0.1s; }
-.delay-200 { transition-delay: 0.2s; }
-.delay-300 { transition-delay: 0.3s; }
-.delay-400 { transition-delay: 0.4s; }
-
-.pulse-indicator {
-  display: inline-block;
-  width: 6px;
-  height: 6px;
-  border-radius: 50%;
-  background-color: var(--accent-red);
-  box-shadow: 0 0 0 0 rgba(201, 42, 42, 0.7);
-  animation: pulseLive 2s infinite;
-  margin-right: 6px;
-  vertical-align: middle;
-}
-
-@keyframes pulseLive {
-  0% {
-    box-shadow: 0 0 0 0 rgba(201, 42, 42, 0.7);
-  }
-  70% {
-    box-shadow: 0 0 0 8px rgba(201, 42, 42, 0);
-  }
-  100% {
-    box-shadow: 0 0 0 0 rgba(201, 42, 42, 0);
-  }
-}
 
 

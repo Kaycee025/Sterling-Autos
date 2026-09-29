@@ -141,7 +141,10 @@ pipeline.processCustomerJourney(familyInput).then(res => {
   assert(htmlContent.includes("Shehu Shagari Way, Central Business District"), "Abuja showroom address present");
   assert(htmlContent.includes("vehicleModal"), "Vehicle Details modal exists");
   assert(htmlContent.includes("bookingModal"), "Book a Viewing modal exists");
-  assert(htmlContent.includes("inspectorDrawer"), "Technical Architecture Inspector drawer exists");
+  assert(!htmlContent.includes("inspectorTrigger"), "Technical Architecture Inspector trigger is removed");
+  assert(!htmlContent.includes("inspectorDrawer"), "Technical Architecture Inspector drawer is removed");
+  assert(cssContent.includes("heroLineRise"), "Hero headline rise animation is active");
+  assert(!cssContent.includes("heroWordEntrance"), "Old word entrance animation is completely removed");
 
   // Check CSS for strict Black & White palette and no forbidden blue/purple
   assert(cssContent.includes("--bg-black: #080809"), "CSS defines strict black background variable");
