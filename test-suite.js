@@ -161,6 +161,9 @@ pipeline.processCustomerJourney(familyInput).then(res => {
   assert(cssContent.includes(".page-hero-about::before"), "CSS defines about car background");
   assert(cssContent.includes(".page-hero-contact::before"), "CSS defines contact car background");
 
+  assert(cssContent.includes(".brand-logo:hover"), "CSS defines brand logo hover effect");
+  assert(cssContent.includes("transform: scale(1.05)"), "CSS defines brand logo scale zoom on hover");
+
   // Check CSS for strict Black & White palette and no forbidden blue/purple
   assert(cssContent.includes("--bg-black: #080809"), "CSS defines strict black background variable");
   assert(cssContent.includes("--accent-red: #C92A2A"), "CSS defines subtle deep crimson red accent");

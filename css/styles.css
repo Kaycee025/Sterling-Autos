@@ -216,6 +216,13 @@ button {
   align-items: center;
   gap: 0.75rem;
   color: var(--text-pure-white);
+  transition: transform 0.28s cubic-bezier(0.16, 1, 0.3, 1);
+  transform-origin: left center;
+  cursor: pointer;
+}
+
+.brand-logo:hover {
+  transform: scale(1.05);
 }
 
 .brand-emblem {
@@ -230,6 +237,12 @@ button {
   letter-spacing: -0.05em;
   color: var(--text-pure-white);
   background: linear-gradient(145deg, #1f1f23, #0d0d10);
+  transition: border-color 0.28s ease, box-shadow 0.28s ease;
+}
+
+.brand-logo:hover .brand-emblem {
+  border-color: var(--text-pure-white);
+  box-shadow: 0 0 10px rgba(255, 255, 255, 0.18);
 }
 
 .brand-text {
