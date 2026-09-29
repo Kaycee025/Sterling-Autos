@@ -1,4 +1,7 @@
 /**
+ * Author: Onah Franklyn Kenechukwu
+ * Timestamp: 2026-09-29 10:48:37 +01:00
+ *
  * Sterling Autos — Application Controller
  * Handles UI interactions, showroom catalog filtering, multi-step concierge flow,
  * modal dialogs, and integration with the 3-Stage Sales Automation Pipeline.

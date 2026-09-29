@@ -1,4 +1,7 @@
 /**
+ * Author: Onah Franklyn Kenechukwu
+ * Timestamp: 2026-09-29 10:48:37 +01:00
+ *
  * Sterling Autos — Comprehensive Verification Test Suite
  * Tests:
  * 1. Dataset integrity (15 vehicles, valid prices, mileage, specs, images)

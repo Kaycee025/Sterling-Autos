@@ -1,4 +1,7 @@
 /**
+ * Author: Onah Franklyn Kenechukwu
+ * Timestamp: 2026-09-29 10:48:37 +01:00
+ *
  * Sterling Autos — Sales Automation Engine
  * 
  * Implements a connected 3-stage sales workflow architecture:

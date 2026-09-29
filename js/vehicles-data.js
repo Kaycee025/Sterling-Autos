@@ -1,4 +1,7 @@
 /**
+ * Author: Onah Franklyn Kenechukwu
+ * Timestamp: 2026-09-29 10:48:37 +01:00
+ *
  * Sterling Autos — Vehicle Inventory Database
  * Curated luxury, executive, and performance inventory for the Nigerian market.
  * All prices in Nigerian Naira (₦). Believable specifications, mileage, and features.
