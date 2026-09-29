@@ -195,13 +195,95 @@ pipeline.processCustomerJourney(familyInput).then(res => {
   assert(cssContent.includes("--accent-red: #C92A2A"), "CSS defines subtle deep crimson red accent");
   assert(!cssContent.includes("#0000ff") && !cssContent.includes("#800080"), "CSS contains no raw blue or purple colors");
 
-  console.log("\n=================================================");
-  console.log(`TEST SUMMARY: ${testsPassed} PASSED, ${testsFailed} FAILED`);
-  console.log("=================================================");
+  // --- TEST SUITE 5: LIVE MARKET SEARCH & GOOGLE SURFING ENGINE ---
+  console.log("\nTEST SUITE 5: Live Market Search & Google Surfing Engine");
+  const { performLiveMarketSearch, LIVE_MARKET_POOL } = require('./server.js');
 
-  if (testsFailed > 0) {
+  assert(Array.isArray(LIVE_MARKET_POOL) && LIVE_MARKET_POOL.length >= 15, `Live market pool contains ${LIVE_MARKET_POOL.length} vehicles`);
+
+  // Test search with iteration 1
+  const search1 = performLiveMarketSearch({
+    name: "Dr. David Ebere",
+    minBudget: 30000000,
+    maxBudget: 60000000,
+    vehicleType: "SUV",
+    brand: "any",
+    location: "Enugu",
+    iteration: 1
+  });
+
+  assert(search1.success === true, "Live market search executed successfully");
+  assert(search1.liveMarketMatches.length > 0, `Returned ${search1.liveMarketMatches.length} live market matches`);
+  assert(search1.overallGoogleSearchUrl.includes("https://www.google.com/search?q="), "Overall Google Chrome search URL generated");
+  assert(search1.liveMarketMatches.every(m => m.directGoogleSearchUrl && m.directGoogleSearchUrl.includes("google.com")), "Every live vehicle has a direct Google Search URL");
+  assert(search1.liveMarketMatches.every(m => m.marketIntelligence && m.marketIntelligence.terrainFitness), "Market intelligence includes Nigerian road & terrain fitness analysis");
+
+  // Test non-repeating guarantee with iteration 2
+  const search2 = performLiveMarketSearch({
+    name: "Dr. David Ebere",
+    minBudget: 30000000,
+    maxBudget: 60000000,
+    vehicleType: "SUV",
+    brand: "any",
+    location: "Enugu",
+    iteration: 2
+  });
+
+  const ids1 = search1.liveMarketMatches.map(m => m.id).join(",");
+  const ids2 = search2.liveMarketMatches.map(m => m.id).join(",");
+  assert(ids1 !== ids2, `Dynamic iteration ensures fresh, non-repeating results (Batch 1: ${search1.liveMarketMatches[0].model} vs Batch 2: ${search2.liveMarketMatches[0].model})`);
+
+  // Verify HTTP endpoint POST /api/live-market-search
+  const http = require('http');
+  const postData = JSON.stringify({
+    name: "Test Client",
+    vehicleType: "Sedan",
+    minBudget: 20000000,
+    maxBudget: 50000000,
+    location: "Lagos",
+    iteration: 1
+  });
+
+  const req = http.request({
+    hostname: '127.0.0.1',
+    port: 3000,
+    path: '/api/live-market-search',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json',
+      'Content-Length': Buffer.byteLength(postData)
+    }
+  }, (res) => {
+    let resBody = '';
+    res.on('data', chunk => resBody += chunk);
+    res.on('end', () => {
+      assert(res.statusCode === 200, `POST /api/live-market-search returned HTTP 200 OK`);
+      try {
+        const parsed = JSON.parse(resBody);
+        assert(parsed.success === true && parsed.liveMarketMatches.length > 0, "HTTP API endpoint returns live car matches via network");
+      } catch (e) {
+        assert(false, "HTTP API response could not be parsed as JSON");
+      }
+
+      console.log("\n=================================================");
+      console.log(`TEST SUMMARY: ${testsPassed} PASSED, ${testsFailed} FAILED`);
+      console.log("=================================================");
+
+      if (testsFailed > 0) {
+        process.exit(1);
+      } else {
+        process.exit(0);
+      }
+    });
+  });
+
+  req.on('error', (err) => {
+    assert(false, `HTTP request to /api/live-market-search failed: ${err.message}`);
     process.exit(1);
-  }
+  });
+
+  req.write(postData);
+  req.end();
 }).catch(err => {
   console.error("Test execution error:", err);
   process.exit(1);

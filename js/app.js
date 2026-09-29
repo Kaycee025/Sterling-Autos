@@ -412,7 +412,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===============================================================
-  // 6. EXECUTE CONNECTED SALES AUTOMATION PIPELINE
+  // 6. EXECUTE CONNECTED SALES AUTOMATION PIPELINE (WITH LIVE WEB SEARCH)
   // ===============================================================
   async function executeSalesWorkflow() {
     // Show refined concierge loading state
@@ -421,11 +421,51 @@ document.addEventListener("DOMContentLoaded", () => {
       finderLoadingState.style.display = "block";
     }
 
-    // Natural brief pause to simulate intelligent inventory evaluation
-    await new Promise(r => setTimeout(r, 650));
+    state.liveSearchIteration = (state.liveSearchIteration || 0) + 1;
+
+    // Live search status feedback in the loading spinner
+    const loadingTitle = document.querySelector(".finder-loading-title");
+    const loadingSub = document.querySelector(".finder-loading-sub");
+
+    const brandName = state.formData.brand !== "any" ? state.formData.brand : "";
+    const typeName = state.formData.vehicleType !== "any" ? state.formData.vehicleType : "vehicles";
+    const locName = state.formData.location || "Nigeria";
+
+    if (loadingTitle) loadingTitle.textContent = "Connecting to Live Automotive Market Feed...";
+    if (loadingSub) loadingSub.textContent = `Surfing online dealer networks and real-time listings for ${brandName} ${typeName} in ${locName}...`;
 
     // Process through the 3-agent pipeline
     const results = await pipeline.processCustomerJourney(state.formData);
+
+    // Fetch live market data from Node server API
+    let liveMarketData = null;
+    try {
+      const payload = {
+        name: state.formData.name || "Valued Client",
+        budgetPreset: state.formData.budgetPreset,
+        minBudget: results.profile.budgetRange.min,
+        maxBudget: results.profile.budgetRange.max,
+        vehicleType: state.formData.vehicleType,
+        brand: state.formData.brand,
+        purpose: state.formData.purpose,
+        transmission: state.formData.transmission,
+        location: state.formData.location,
+        iteration: state.liveSearchIteration
+      };
+
+      const resp = await fetch("/api/live-market-search", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(payload)
+      });
+      if (resp.ok) {
+        liveMarketData = await resp.json();
+      }
+    } catch (err) {
+      console.warn("Live market search endpoint unavailable, using offline pipeline:", err);
+    }
+
+    results.liveMarketData = liveMarketData;
     state.lastResults = results;
 
     // Reset finder card for re-use if desired
@@ -446,7 +486,7 @@ document.addEventListener("DOMContentLoaded", () => {
   }
 
   // ===============================================================
-  // 7. RENDER MATCH RESULTS & EDITORIAL REASONING
+  // 7. RENDER MATCH RESULTS: LIVE WEB SEARCH + SHOWROOM INVENTORY
   // ===============================================================
   function renderMatchResults(results) {
     if (!resultsGrid) return;
@@ -455,10 +495,52 @@ document.addEventListener("DOMContentLoaded", () => {
       resultsStatusMessage.textContent = results.matches.statusMessage;
     }
     if (resultsCountBadge) {
-      resultsCountBadge.textContent = `${results.matches.recommendations.length} Curated Matches`;
+      const totalCount = results.matches.recommendations.length + (results.liveMarketData ? results.liveMarketData.liveMarketMatches.length : 0);
+      resultsCountBadge.textContent = `${totalCount} Curated Matches`;
     }
 
-    resultsGrid.innerHTML = results.matches.recommendations.map(rec => {
+    let html = "";
+
+    // 1. LIVE ONLINE MARKET SEARCH RESULTS (If available)
+    if (results.liveMarketData && results.liveMarketData.liveMarketMatches && results.liveMarketData.liveMarketMatches.length > 0) {
+      const lmd = results.liveMarketData;
+      html += `
+        <div class="live-search-container">
+          <div class="live-search-header-bar">
+            <div class="live-search-title-wrap">
+              <span class="live-pulse-badge">
+                <span class="live-dot"></span> Live Internet & Market Search
+              </span>
+              <div class="live-search-query-text">${lmd.searchSummary.query}</div>
+              <div class="live-search-status-sub">${lmd.searchSummary.marketStatus} · Fresh options from verified auto exchanges</div>
+            </div>
+
+            <div class="live-search-actions">
+              <button class="btn btn-refresh-live" id="btnRefreshLiveSearch">
+                <span>🔄 Surf For More Fresh Online Options</span>
+              </button>
+              <a href="${lmd.overallGoogleSearchUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-google-global">
+                <span>🌐 Browse Live on Google Chrome ↗</span>
+              </a>
+            </div>
+          </div>
+
+          <div class="live-market-grid" id="liveMarketCardsGrid">
+            ${renderLiveMarketCardsHTML(lmd.liveMarketMatches)}
+          </div>
+
+          <div class="showroom-inventory-divider">
+            <div>
+              <h3 class="showroom-divider-title">🏛️ Sterling Autos Verified Showroom Inventory</h3>
+              <p class="showroom-divider-sub">Vehicles physically available for private viewing and immediate collection at our regional showrooms.</p>
+            </div>
+          </div>
+        </div>
+      `;
+    }
+
+    // 2. SHOWROOM INVENTORY RECOMMENDATIONS
+    html += results.matches.recommendations.map(rec => {
       const v = rec.vehicle;
       return `
         <article class="match-card">
@@ -493,7 +575,68 @@ document.addEventListener("DOMContentLoaded", () => {
       `;
     }).join("");
 
+    resultsGrid.innerHTML = html;
+
     // Attach listeners
+    attachResultsListeners();
+  }
+
+  function renderLiveMarketCardsHTML(matches) {
+    return matches.map(car => `
+      <article class="live-market-card" data-live-id="${car.id}">
+        <div class="live-card-media">
+          <span class="live-source-pill">${car.sourceBadge}</span>
+          <img src="${car.image}" alt="${car.year} ${car.make} ${car.model}" class="live-card-image" />
+        </div>
+        <div class="live-card-body">
+          <div class="live-card-header">
+            <div class="live-card-make-year">${car.year} · ${car.make} · ${car.bodyType}</div>
+            <h4 class="live-card-title">${car.model}</h4>
+          </div>
+
+          <div class="live-card-price-box">
+            <div class="live-card-price-label">Live Market Range</div>
+            <div class="live-card-price">${car.estimatedPriceRange}</div>
+          </div>
+
+          <div class="vehicle-card-specs" style="margin-bottom: 0.85rem;">
+            <span class="spec-item">${car.transmission}</span>
+            <span class="spec-item">${car.fuel}</span>
+            <span class="spec-item">${car.engine}</span>
+            <span class="spec-item">${car.seating} Seats</span>
+          </div>
+
+          <!-- Market Intelligence Box -->
+          <div class="live-intel-box">
+            <div class="live-intel-item">
+              <span style="color: #4ade80;">✓</span>
+              <span><strong>Terrain:</strong> ${car.marketIntelligence.terrainFitness}</span>
+            </div>
+            <div class="live-intel-item">
+              <span style="color: #4ade80;">✓</span>
+              <span><strong>Maintenance:</strong> ${car.marketIntelligence.maintenanceEase}</span>
+            </div>
+            <div class="live-intel-item">
+              <span style="color: #A1A1AA;">ℹ</span>
+              <span><strong>Clearing:</strong> ${car.marketIntelligence.estimatedDutyPort}</span>
+            </div>
+          </div>
+
+          <div class="live-card-actions">
+            <a href="${car.directGoogleSearchUrl}" target="_blank" rel="noopener noreferrer" class="btn btn-chrome-search">
+              <span>🔍 Surf on Google ↗</span>
+            </a>
+            <button class="btn btn-primary btn-sm live-source-request-btn" data-id="${car.id}">
+              <span>Request Sourcing</span>
+            </button>
+          </div>
+        </div>
+      </article>
+    `).join("");
+  }
+
+  function attachResultsListeners() {
+    // Showroom Listeners
     resultsGrid.querySelectorAll(".view-details-btn").forEach(btn => {
       btn.addEventListener("click", () => openVehicleModal(btn.getAttribute("data-id")));
     });
@@ -504,6 +647,60 @@ document.addEventListener("DOMContentLoaded", () => {
         openBookingModal(id);
       });
     });
+
+    // Live Sourcing Button Listeners
+    resultsGrid.querySelectorAll(".live-source-request-btn").forEach(btn => {
+      btn.addEventListener("click", () => {
+        const id = btn.getAttribute("data-id");
+        openBookingModal(id);
+      });
+    });
+
+    // Refresh Live Online Options Button
+    const refreshBtn = document.getElementById("btnRefreshLiveSearch");
+    if (refreshBtn) {
+      refreshBtn.addEventListener("click", async () => {
+        refreshBtn.innerHTML = `<span>🔄 Surfing Live Market...</span>`;
+        refreshBtn.disabled = true;
+
+        state.liveSearchIteration = (state.liveSearchIteration || 1) + 1;
+        try {
+          const payload = {
+            name: state.formData.name || "Valued Client",
+            budgetPreset: state.formData.budgetPreset,
+            minBudget: state.lastResults ? state.lastResults.profile.budgetRange.min : 0,
+            maxBudget: state.lastResults ? state.lastResults.profile.budgetRange.max : 300000000,
+            vehicleType: state.formData.vehicleType,
+            brand: state.formData.brand,
+            purpose: state.formData.purpose,
+            transmission: state.formData.transmission,
+            location: state.formData.location,
+            iteration: state.liveSearchIteration
+          };
+
+          const resp = await fetch("/api/live-market-search", {
+            method: "POST",
+            headers: { "Content-Type": "application/json" },
+            body: JSON.stringify(payload)
+          });
+
+          if (resp.ok) {
+            const data = await resp.json();
+            if (state.lastResults) {
+              state.lastResults.liveMarketData = data;
+              renderMatchResults(state.lastResults);
+            }
+          }
+        } catch (err) {
+          console.error("Failed to refresh live market options:", err);
+        } finally {
+          if (refreshBtn) {
+            refreshBtn.innerHTML = `<span>🔄 Surf For More Fresh Online Options</span>`;
+            refreshBtn.disabled = false;
+          }
+        }
+      });
+    }
   }
 
   // ===============================================================
@@ -615,11 +812,27 @@ document.addEventListener("DOMContentLoaded", () => {
 
     const selectEl = document.getElementById("bookingVehicleSelect");
     if (selectEl) {
-      selectEl.innerHTML = VEHICLES_DATA.map(v => `
-        <option value="${v.id}" ${vehicleId === v.id ? 'selected' : ''}>
+      let liveVehicle = null;
+      if (vehicleId && vehicleId.startsWith("live-") && state.lastResults && state.lastResults.liveMarketData && state.lastResults.liveMarketData.liveMarketMatches) {
+        liveVehicle = state.lastResults.liveMarketData.liveMarketMatches.find(car => car.id === vehicleId);
+      }
+
+      let optionsHtml = "";
+      if (liveVehicle) {
+        optionsHtml += `
+          <option value="${liveVehicle.id}" selected>
+            [Live Market Sourcing] ${liveVehicle.year} ${liveVehicle.make} ${liveVehicle.model} (${liveVehicle.estimatedPriceRange})
+          </option>
+        `;
+      }
+
+      optionsHtml += VEHICLES_DATA.map(v => `
+        <option value="${v.id}" ${(!liveVehicle && vehicleId === v.id) ? 'selected' : ''}>
           ${v.year} ${v.make} ${v.model} (${v.priceFormatted}) — ${v.location}
         </option>
       `).join("");
+
+      selectEl.innerHTML = optionsHtml;
     }
 
     // Pre-fill user inputs if user filled Step 5

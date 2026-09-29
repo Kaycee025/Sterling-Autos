@@ -1690,6 +1690,310 @@ button {
   background-position: 80% center;
 }
 
+/* ==========================================================================
+   LIVE ONLINE MARKET SEARCH & WEB INTELLIGENCE STYLES
+   ========================================================================== */
+.live-search-container {
+  margin-bottom: 3.5rem;
+}
+
+.live-search-header-bar {
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid var(--border-medium);
+  border-radius: var(--radius-sm);
+  padding: 1.5rem 1.75rem;
+  margin-bottom: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+}
+
+.live-search-title-wrap {
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+.live-pulse-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  background: rgba(34, 197, 94, 0.12);
+  border: 1px solid rgba(34, 197, 94, 0.35);
+  color: #4ade80;
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  padding: 0.25rem 0.65rem;
+  border-radius: 999px;
+  width: fit-content;
+}
+
+.live-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #22c55e;
+  box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7);
+  animation: pulseEmerald 1.8s infinite;
+}
+
+@keyframes pulseEmerald {
+  0% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0.7); }
+  70% { transform: scale(1); box-shadow: 0 0 0 6px rgba(34, 197, 94, 0); }
+  100% { transform: scale(0.95); box-shadow: 0 0 0 0 rgba(34, 197, 94, 0); }
+}
+
+.live-search-query-text {
+  font-size: 1.05rem;
+  font-weight: 700;
+  color: var(--text-pure-white);
+}
+
+.live-search-status-sub {
+  font-size: 0.825rem;
+  color: var(--text-muted);
+}
+
+.live-search-actions {
+  display: flex;
+  align-items: center;
+  gap: 0.85rem;
+  flex-wrap: wrap;
+}
+
+.btn-google-global {
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid var(--border-medium);
+  color: var(--text-pure-white);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.6rem 1.15rem;
+  border-radius: var(--radius-xs);
+  transition: all 0.2s ease;
+  text-decoration: none;
+}
+
+.btn-google-global:hover {
+  background: rgba(255, 255, 255, 0.16);
+  border-color: var(--text-pure-white);
+  transform: translateY(-2px);
+}
+
+.btn-refresh-live {
+  background: var(--accent-red);
+  border: 1px solid var(--accent-red);
+  color: var(--text-pure-white);
+  display: inline-flex;
+  align-items: center;
+  gap: 0.45rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.6rem 1.15rem;
+  border-radius: var(--radius-xs);
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.btn-refresh-live:hover {
+  background: var(--accent-red-hover);
+  border-color: var(--accent-red-hover);
+  transform: translateY(-2px);
+}
+
+.live-market-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.75rem;
+  margin-bottom: 2.5rem;
+}
+
+.live-market-card {
+  background: var(--bg-card);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-sm);
+  overflow: hidden;
+  display: flex;
+  flex-direction: column;
+  transition: transform 0.3s ease, border-color 0.3s ease, box-shadow 0.3s ease;
+  position: relative;
+}
+
+.live-market-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--border-medium);
+  box-shadow: 0 16px 36px rgba(0, 0, 0, 0.6);
+}
+
+.live-card-media {
+  position: relative;
+  width: 100%;
+  height: 220px;
+  background: #111;
+  overflow: hidden;
+}
+
+.live-card-image {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  transition: transform 0.6s ease;
+}
+
+.live-market-card:hover .live-card-image {
+  transform: scale(1.04);
+}
+
+.live-source-pill {
+  position: absolute;
+  top: 1rem;
+  left: 1rem;
+  background: rgba(8, 8, 9, 0.88);
+  backdrop-filter: blur(8px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  color: #E4E4E7;
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  padding: 0.3rem 0.65rem;
+  border-radius: 999px;
+  z-index: 2;
+}
+
+.live-card-body {
+  padding: 1.5rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.live-card-header {
+  margin-bottom: 0.5rem;
+}
+
+.live-card-make-year {
+  font-size: 0.75rem;
+  font-weight: 600;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--text-muted);
+}
+
+.live-card-title {
+  font-size: 1.25rem;
+  font-weight: 700;
+  color: var(--text-pure-white);
+  line-height: 1.25;
+  margin-top: 0.25rem;
+}
+
+.live-card-price-box {
+  margin-top: 0.75rem;
+  margin-bottom: 1rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(255, 255, 255, 0.03);
+  border: 1px solid rgba(255, 255, 255, 0.08);
+  border-radius: var(--radius-xs);
+}
+
+.live-card-price-label {
+  font-size: 0.68rem;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.08em;
+  color: var(--text-dim);
+}
+
+.live-card-price {
+  font-size: 1.35rem;
+  font-weight: 800;
+  color: var(--text-pure-white);
+  letter-spacing: -0.02em;
+}
+
+.live-intel-box {
+  background: rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--border-subtle);
+  border-radius: var(--radius-xs);
+  padding: 0.85rem 1rem;
+  margin-bottom: 1.25rem;
+  font-size: 0.8rem;
+  line-height: 1.5;
+  color: #D4D4D8;
+}
+
+.live-intel-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.45rem;
+  margin-bottom: 0.35rem;
+}
+
+.live-intel-item:last-child {
+  margin-bottom: 0;
+}
+
+.live-card-actions {
+  display: flex;
+  gap: 0.65rem;
+  margin-top: auto;
+}
+
+.live-card-actions .btn {
+  flex: 1;
+  text-align: center;
+  justify-content: center;
+}
+
+.btn-chrome-search {
+  background: #18181B;
+  color: #FAFAFA;
+  border: 1px solid #3F3F46;
+  text-decoration: none;
+  font-size: 0.75rem;
+  padding: 0.6rem 0.75rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  border-radius: var(--radius-xs);
+  transition: all 0.2s ease;
+}
+
+.btn-chrome-search:hover {
+  background: #27272A;
+  border-color: #A1A1AA;
+  color: #FFFFFF;
+}
+
+.showroom-inventory-divider {
+  margin: 3.5rem 0 2rem;
+  padding-top: 2rem;
+  border-top: 1px solid var(--border-medium);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  flex-wrap: wrap;
+  gap: 1rem;
+}
+
+.showroom-divider-title {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: var(--text-pure-white);
+}
+
+.showroom-divider-sub {
+  font-size: 0.85rem;
+  color: var(--text-muted);
+}
 
 /* ==========================================================================
    RESPONSIVE DESIGN (DESKTOP, TABLET, MOBILE & COMPACT PHONES)
@@ -2005,6 +2309,44 @@ button {
     justify-content: center;
   }
 
+  /* Live Online Market Search Responsive */
+  .live-search-header-bar {
+    padding: 1.25rem 1rem;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+  
+  .live-search-actions {
+    width: 100%;
+    flex-direction: column;
+  }
+  
+  .live-search-actions .btn-google-global,
+  .live-search-actions .btn-refresh-live {
+    width: 100%;
+    justify-content: center;
+    text-align: center;
+  }
+
+  .live-market-grid {
+    grid-template-columns: 1fr;
+    gap: 1.25rem;
+  }
+  
+  .live-card-actions {
+    flex-direction: column;
+    gap: 0.5rem;
+  }
+
+  .live-card-actions .btn {
+    width: 100%;
+  }
+
+  .showroom-inventory-divider {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
   /* Personalized Follow-up */
   .followup-wrapper {
     padding: 1.5rem 1.25rem;
@@ -2200,5 +2542,17 @@ button {
   
   .followup-action-card {
     padding: 1.25rem 1rem;
+  }
+
+  .live-search-query-text {
+    font-size: 0.95rem;
+  }
+  
+  .live-card-title {
+    font-size: 1.15rem;
+  }
+  
+  .live-card-price {
+    font-size: 1.2rem;
   }
 }
