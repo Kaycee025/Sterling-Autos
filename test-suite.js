@@ -216,11 +216,12 @@ pipeline.processCustomerJourney(familyInput).then(res => {
   assert(!cssContent.includes("#0000ff") && !cssContent.includes("#800080"), "CSS contains no raw blue or purple colors");
 
   // Multi-selection UI indicators
+  assert(finderHtml.includes('id="typeCountBadge"'), "Find Your Car contains body type multi-select badge");
+  assert(finderHtml.includes('id="brandCountBadge"'), "Find Your Car contains brand multi-select badge");
   assert(finderHtml.includes('id="purposeCountBadge"'), "Find Your Car contains multi-purpose count badge");
-  assert(finderHtml.includes('selectable-check-icon'), "Find Your Car contains selectable checkmark icons");
   assert(htmlContent.includes('id="purposeCountBadge"'), "Homepage contains multi-purpose count badge");
   assert(cssContent.includes(".step-multi-badge"), "CSS defines multi-select badge styling");
-  assert(cssContent.includes(".selectable-check-icon"), "CSS defines checkmark icon styling");
+  assert(cssContent.includes(".selectable-card.selected::after"), "CSS defines checkmark badge on selected cards");
 
   // --- TEST SUITE 5: LIVE MARKET SEARCH & GOOGLE SURFING ENGINE ---
   console.log("\nTEST SUITE 5: Live Market Search & Google Surfing Engine");

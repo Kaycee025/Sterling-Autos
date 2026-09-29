@@ -9,7 +9,7 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sterling Autos — Intelligent Car Sales Platform</title>
   <meta name="description" content="Find the car that fits your drive. Sterling Autos combines a curated luxury vehicle inventory in Nigeria with an intelligent sales matching consultation." />
-  <link rel="stylesheet" href="css/styles.css" />
+  <link rel="stylesheet" href="css/styles.css?v=2.6.0" />
   <link rel="preload" as="image" href="assets/images/hero-home.jpg" fetchpriority="high" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -229,9 +229,12 @@
               <!-- STEP 2: Vehicle Type & Brand -->
               <div class="finder-step-content" data-step="2">
                 <h3 class="step-title">What vehicle category and brand do you prefer?</h3>
-                <p class="step-desc">Choose the body profile that fits your driving habits and your preferred marques.</p>
+                <p class="step-desc">Choose one or more body profiles and marques that fit your driving lifestyle.</p>
 
-                <label class="form-label" style="margin-bottom: 0.75rem; display: block;">Vehicle Body Type</label>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <label class="form-label" style="margin: 0;">Vehicle Body Type (Select one or more)</label>
+                  <span class="step-multi-badge" id="typeCountBadge">Any</span>
+                </div>
                 <div class="option-grid option-grid-sm" style="margin-bottom: 2rem;">
                   <div class="selectable-card selected" data-group="vehicleType" data-value="any">
                     <div class="selectable-card-title">Any Type</div>
@@ -259,7 +262,10 @@
                   </div>
                 </div>
 
-                <label class="form-label" style="margin-bottom: 0.75rem; display: block;">Brand Preference</label>
+                <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 0.75rem;">
+                  <label class="form-label" style="margin: 0;">Brand Preference (Select one or more)</label>
+                  <span class="step-multi-badge" id="brandCountBadge">Any</span>
+                </div>
                 <div class="option-grid option-grid-sm">
                   <div class="selectable-card selected" data-group="brand" data-value="any">
                     <div class="selectable-card-title">Any Brand</div>
@@ -302,52 +308,31 @@
 
                 <div class="option-grid">
                   <div class="selectable-card selected" data-group="purpose" data-value="family">
-                    <div class="selectable-card-header-row">
-                      <div class="selectable-card-title">Family Use</div>
-                      <span class="selectable-check-icon">✓</span>
-                    </div>
+                    <div class="selectable-card-title">Family Use</div>
                     <div class="selectable-card-sub">Generous seating, safety, and cargo room for road trips</div>
                   </div>
                   <div class="selectable-card" data-group="purpose" data-value="daily-driving">
-                    <div class="selectable-card-header-row">
-                      <div class="selectable-card-title">Daily Driving</div>
-                      <span class="selectable-check-icon">✓</span>
-                    </div>
+                    <div class="selectable-card-title">Daily Driving</div>
                     <div class="selectable-card-sub">Urban ease, efficient running, and effortless daily commuting</div>
                   </div>
                   <div class="selectable-card" data-group="purpose" data-value="business">
-                    <div class="selectable-card-header-row">
-                      <div class="selectable-card-title">Business & Executive</div>
-                      <span class="selectable-check-icon">✓</span>
-                    </div>
+                    <div class="selectable-card-title">Business & Executive</div>
                     <div class="selectable-card-sub">Professional stature, executive rear legroom, quiet cabin</div>
                   </div>
                   <div class="selectable-card" data-group="purpose" data-value="long-distance">
-                    <div class="selectable-card-header-row">
-                      <div class="selectable-card-title">Long-Distance Travel</div>
-                      <span class="selectable-check-icon">✓</span>
-                    </div>
+                    <div class="selectable-card-title">Long-Distance Travel</div>
                     <div class="selectable-card-sub">Heavy-duty suspension, long fuel range, highway poise</div>
                   </div>
                   <div class="selectable-card" data-group="purpose" data-value="luxury">
-                    <div class="selectable-card-header-row">
-                      <div class="selectable-card-title">Luxury & Prestige</div>
-                      <span class="selectable-check-icon">✓</span>
-                    </div>
+                    <div class="selectable-card-title">Luxury & Prestige</div>
                     <div class="selectable-card-sub">Handcrafted interiors, authoritative status, finest finishes</div>
                   </div>
                   <div class="selectable-card" data-group="purpose" data-value="performance">
-                    <div class="selectable-card-header-row">
-                      <div class="selectable-card-title">Performance Driving</div>
-                      <span class="selectable-check-icon">✓</span>
-                    </div>
+                    <div class="selectable-card-title">Performance Driving</div>
                     <div class="selectable-card-sub">Responsive powertrain, sharp cornering, sports dynamics</div>
                   </div>
                   <div class="selectable-card" data-group="purpose" data-value="first-car">
-                    <div class="selectable-card-header-row">
-                      <div class="selectable-card-title">First Car Ownership</div>
-                      <span class="selectable-check-icon">✓</span>
-                    </div>
+                    <div class="selectable-card-title">First Car Ownership</div>
                     <div class="selectable-card-sub">Low running costs, readily available parts, simple upkeep</div>
                   </div>
                 </div>
@@ -918,6 +903,6 @@
   <!-- Script Modules -->
   <script src="js/vehicles-data.js"></script>
   <script src="js/sales-workflow.js"></script>
-  <script src="js/app.js"></script>
+  <script src="js/app.js?v=2.6.0"></script>
 </body>
 </html>

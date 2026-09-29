@@ -839,6 +839,7 @@ button {
 }
 
 .selectable-card {
+  position: relative;
   border: 1px solid var(--border-subtle);
   background: var(--bg-card);
   padding: 1.25rem 1rem;
@@ -849,6 +850,7 @@ button {
   flex-direction: column;
   align-items: flex-start;
   text-align: left;
+  user-select: none;
 }
 
 .selectable-card:hover {
@@ -860,6 +862,28 @@ button {
   border-color: var(--text-pure-white);
   background: #1f1f26;
   box-shadow: 0 0 0 1px var(--text-pure-white);
+  padding-right: 2.25rem;
+}
+
+/* Elegant checkmark badge that ONLY exists on selected cards */
+.selectable-card.selected::after {
+  content: "✓";
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  width: 18px;
+  height: 18px;
+  background: #ffffff;
+  color: #080809;
+  border-radius: 3px;
+  font-size: 11px;
+  font-weight: 800;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  line-height: 18px;
+  text-align: center;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.4);
 }
 
 .selectable-card-title {
@@ -898,41 +922,6 @@ button {
   border-radius: 9999px;
   letter-spacing: 0.04em;
   transition: all var(--transition-fast);
-}
-
-.selectable-card-header-row {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  margin-bottom: 0.25rem;
-}
-
-.selectable-check-icon {
-  display: inline-flex;
-  align-items: center;
-  justify-content: center;
-  width: 18px;
-  height: 18px;
-  border-radius: 3px;
-  border: 1px solid var(--border-subtle);
-  background: rgba(255, 255, 255, 0.03);
-  font-size: 0.7rem;
-  font-weight: 800;
-  color: transparent;
-  transition: all var(--transition-fast);
-  flex-shrink: 0;
-  margin-left: 0.5rem;
-}
-
-.selectable-card:hover .selectable-check-icon {
-  border-color: var(--border-strong);
-}
-
-.selectable-card.selected .selectable-check-icon {
-  background: var(--text-pure-white);
-  border-color: var(--text-pure-white);
-  color: #080809;
 }
 
 /* Custom Budget Fields */

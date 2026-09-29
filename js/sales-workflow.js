@@ -194,10 +194,27 @@ class SalesAutomationPipeline {
       };
     }
 
-    // 3. Customer geographic context
+    // 3. Normalize multi-selections for body type, brand, transmission, fuel
+    const vehicleTypes = (Array.isArray(input.vehicleTypes) && input.vehicleTypes.length > 0)
+      ? input.vehicleTypes
+      : (typeof input.vehicleType === "string" ? input.vehicleType.split(",").map(s => s.trim()).filter(Boolean) : ["any"]);
+
+    const brands = (Array.isArray(input.brands) && input.brands.length > 0)
+      ? input.brands
+      : (typeof input.brand === "string" ? input.brand.split(",").map(s => s.trim()).filter(Boolean) : ["any"]);
+
+    const transmissions = (Array.isArray(input.transmissions) && input.transmissions.length > 0)
+      ? input.transmissions
+      : (typeof input.transmission === "string" ? input.transmission.split(",").map(s => s.trim()).filter(Boolean) : ["any"]);
+
+    const fuels = (Array.isArray(input.fuels) && input.fuels.length > 0)
+      ? input.fuels
+      : (typeof input.fuel === "string" ? input.fuel.split(",").map(s => s.trim()).filter(Boolean) : ["any"]);
+
+    // 4. Customer geographic context
     const location = input.location || "Enugu";
 
-    // 4. Construct structured, immutable profile
+    // 5. Construct structured, immutable profile
     return {
       customerName: (input.name && input.name.trim()) ? input.name.trim() : "Valued Client",
       customerPhone: input.phone || "",
@@ -207,10 +224,14 @@ class SalesAutomationPipeline {
         max: maxBudget,
         label: this.formatNairaRange(minBudget, maxBudget)
       },
-      vehicleTypePreference: input.vehicleType || "any",
-      brandPreference: input.brand || "any",
-      transmissionPreference: input.transmission || "any",
-      fuelPreference: input.fuel || "any",
+      vehicleTypePreference: vehicleTypes[0] || "any",
+      vehicleTypePreferences: vehicleTypes,
+      brandPreference: brands[0] || "any",
+      brandPreferences: brands,
+      transmissionPreference: transmissions[0] || "any",
+      transmissionPreferences: transmissions,
+      fuelPreference: fuels[0] || "any",
+      fuelPreferences: fuels,
       intendedPurpose: primaryPurpose,
       intendedPurposes: purposes,
       lifestylePersona: persona,
@@ -297,24 +318,32 @@ class SalesAutomationPipeline {
       }
     }
 
-    // 2. Body Type Fit (Max 25 pts)
-    if (profile.vehicleTypePreference === "any") {
+    // 2. Body Type Fit (Max 25 pts, supports multi-type evaluation)
+    const types = (profile.vehicleTypePreferences && profile.vehicleTypePreferences.length > 0)
+      ? profile.vehicleTypePreferences
+      : [profile.vehicleTypePreference || "any"];
+
+    if (types.includes("any")) {
       breakdown.bodyTypeFit = 20;
-    } else if (vehicle.bodyType.toLowerCase() === profile.vehicleTypePreference.toLowerCase()) {
+    } else if (types.some(t => t.toLowerCase() === vehicle.bodyType.toLowerCase())) {
       breakdown.bodyTypeFit = 25;
     } else if (
-      (profile.vehicleTypePreference.toLowerCase() === "suv" && vehicle.bodyType.toLowerCase() === "crossover") ||
-      (profile.vehicleTypePreference.toLowerCase() === "crossover" && vehicle.bodyType.toLowerCase() === "suv")
+      (types.some(t => t.toLowerCase() === "suv") && vehicle.bodyType.toLowerCase() === "crossover") ||
+      (types.some(t => t.toLowerCase() === "crossover") && vehicle.bodyType.toLowerCase() === "suv")
     ) {
       breakdown.bodyTypeFit = 18; // Related styles
     } else {
       breakdown.bodyTypeFit = 5;
     }
 
-    // 3. Brand Fit (Max 15 pts)
-    if (profile.brandPreference === "any") {
+    // 3. Brand Fit (Max 15 pts, supports multi-brand evaluation)
+    const brands = (profile.brandPreferences && profile.brandPreferences.length > 0)
+      ? profile.brandPreferences
+      : [profile.brandPreference || "any"];
+
+    if (brands.includes("any")) {
       breakdown.brandFit = 12;
-    } else if (vehicle.make.toLowerCase() === profile.brandPreference.toLowerCase()) {
+    } else if (brands.some(b => b.toLowerCase() === vehicle.make.toLowerCase())) {
       breakdown.brandFit = 15;
     } else {
       breakdown.brandFit = 4;
@@ -371,12 +400,20 @@ class SalesAutomationPipeline {
     }
     breakdown.purposeFit = Math.min(15, Math.max(6, calculatedPurposeFit + 4));
 
-    // 5. Powertrain (Transmission & Fuel) (Max 10 pts)
+    // 5. Powertrain (Transmission & Fuel) (Max 10 pts, supports multi-powertrain evaluation)
+    const trans = (profile.transmissionPreferences && profile.transmissionPreferences.length > 0)
+      ? profile.transmissionPreferences
+      : [profile.transmissionPreference || "any"];
+
+    const fuels = (profile.fuelPreferences && profile.fuelPreferences.length > 0)
+      ? profile.fuelPreferences
+      : [profile.fuelPreference || "any"];
+
     let powertrainScore = 6;
-    if (profile.transmissionPreference === "any" || vehicle.transmission.toLowerCase() === profile.transmissionPreference.toLowerCase()) {
+    if (trans.includes("any") || trans.some(t => t.toLowerCase() === vehicle.transmission.toLowerCase())) {
       powertrainScore += 2;
     }
-    if (profile.fuelPreference === "any" || vehicle.fuel.toLowerCase() === profile.fuelPreference.toLowerCase()) {
+    if (fuels.includes("any") || fuels.some(f => f.toLowerCase() === vehicle.fuel.toLowerCase())) {
       powertrainScore += 2;
     }
     breakdown.powertrainFit = Math.min(10, powertrainScore);

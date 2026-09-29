@@ -377,13 +377,34 @@ function performLiveMarketSearch(params) {
     minBudget = 0,
     maxBudget = 300000000,
     vehicleType = "any",
+    vehicleTypes: rawVehicleTypes = null,
     brand = "any",
+    brands: rawBrands = null,
     purpose = "daily-driving",
     purposes: rawPurposes = null,
     transmission = "any",
+    transmissions: rawTransmissions = null,
     location = "Enugu",
     iteration = 1
   } = params;
+
+  let chosenVehicleTypes = [];
+  if (Array.isArray(rawVehicleTypes) && rawVehicleTypes.length > 0) {
+    chosenVehicleTypes = rawVehicleTypes;
+  } else if (typeof vehicleType === "string" && vehicleType.trim()) {
+    chosenVehicleTypes = vehicleType.split(",").map(t => t.trim()).filter(Boolean);
+  } else {
+    chosenVehicleTypes = ["any"];
+  }
+
+  let chosenBrands = [];
+  if (Array.isArray(rawBrands) && rawBrands.length > 0) {
+    chosenBrands = rawBrands;
+  } else if (typeof brand === "string" && brand.trim()) {
+    chosenBrands = brand.split(",").map(b => b.trim()).filter(Boolean);
+  } else {
+    chosenBrands = ["any"];
+  }
 
   let chosenPurposes = [];
   if (Array.isArray(rawPurposes) && rawPurposes.length > 0) {
@@ -396,20 +417,35 @@ function performLiveMarketSearch(params) {
     chosenPurposes = ["daily-driving"];
   }
 
+  let chosenTransmissions = [];
+  if (Array.isArray(rawTransmissions) && rawTransmissions.length > 0) {
+    chosenTransmissions = rawTransmissions;
+  } else if (typeof transmission === "string" && transmission.trim()) {
+    chosenTransmissions = transmission.split(",").map(t => t.trim()).filter(Boolean);
+  } else {
+    chosenTransmissions = ["any"];
+  }
+
   // Filter pool based on user's criteria with smart tolerance
   let candidates = LIVE_MARKET_POOL.filter(car => {
     // Budget check
     if (minBudget > 0 && car.priceMax < minBudget * 0.85) return false;
     if (maxBudget < 250000000 && car.priceMin > maxBudget * 1.25) return false;
 
-    // Body type check
-    if (vehicleType !== 'any' && car.bodyType.toLowerCase() !== vehicleType.toLowerCase()) return false;
+    // Body type check (supports multi-selection)
+    if (!chosenVehicleTypes.includes('any') && !chosenVehicleTypes.some(vt => vt.toLowerCase() === car.bodyType.toLowerCase())) {
+      return false;
+    }
 
-    // Brand check
-    if (brand !== 'any' && car.make.toLowerCase() !== brand.toLowerCase()) return false;
+    // Brand check (supports multi-selection)
+    if (!chosenBrands.includes('any') && !chosenBrands.some(b => b.toLowerCase() === car.make.toLowerCase())) {
+      return false;
+    }
 
-    // Transmission check
-    if (transmission !== 'any' && car.transmission.toLowerCase() !== transmission.toLowerCase()) return false;
+    // Transmission check (supports multi-selection)
+    if (!chosenTransmissions.includes('any') && !chosenTransmissions.some(t => t.toLowerCase() === car.transmission.toLowerCase())) {
+      return false;
+    }
 
     return true;
   });
@@ -590,11 +626,14 @@ const server = http.createServer((req, res) => {
 
     const ext = path.extname(filePath).toLowerCase();
     const contentType = MIME_TYPES[ext] || 'application/octet-stream';
+    const isCodeOrMarkup = ext === '.html' || ext === '.js' || ext === '.css' || ext === '.json';
 
     res.writeHead(200, {
       'Content-Type': contentType,
       'Content-Length': stats.size,
-      'Cache-Control': ext === '.html' ? 'no-cache' : 'public, max-age=86400'
+      'Cache-Control': isCodeOrMarkup ? 'no-cache, no-store, must-revalidate' : 'public, max-age=86400',
+      'Pragma': 'no-cache',
+      'Expires': '0'
     });
 
     const stream = fs.createReadStream(filePath);

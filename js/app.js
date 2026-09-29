@@ -21,11 +21,15 @@ document.addEventListener("DOMContentLoaded", () => {
       customMaxBudget: "",
       location: "Enugu",
       vehicleType: "any",
+      vehicleTypes: ["any"],
       brand: "any",
+      brands: ["any"],
       purpose: "family",
       purposes: ["family"],
       transmission: "any",
+      transmissions: ["any"],
       fuel: "any",
+      fuels: ["any"],
       features: [],
       name: "",
       phone: "",
@@ -305,16 +309,77 @@ document.addEventListener("DOMContentLoaded", () => {
         const group = card.getAttribute("data-group");
         const value = card.getAttribute("data-value");
 
-        if (group === "features") {
-          // Multi-select for features
-          card.classList.toggle("selected");
-          if (card.classList.contains("selected")) {
-            if (!state.formData.features.includes(value)) state.formData.features.push(value);
-          } else {
-            state.formData.features = state.formData.features.filter(f => f !== value);
+        if (group === "budgetPreset") {
+          // Budget is single-select target
+          document.querySelectorAll(`.selectable-card[data-group="budgetPreset"]`).forEach(c => c.classList.remove("selected"));
+          card.classList.add("selected");
+          state.formData.budgetPreset = value;
+
+          const customBudgetBox = document.getElementById("customBudgetBox");
+          if (customBudgetBox) {
+            customBudgetBox.style.display = (value === "custom") ? "grid" : "none";
           }
-        } else if (group === "purpose") {
-          // Multi-select for purpose / intended use
+          return;
+        }
+
+        if (group === "vehicleType") {
+          // Multi-select for vehicle types with "any" toggling
+          if (value === "any") {
+            document.querySelectorAll(`.selectable-card[data-group="vehicleType"]`).forEach(c => c.classList.remove("selected"));
+            card.classList.add("selected");
+            state.formData.vehicleTypes = ["any"];
+          } else {
+            const anyCard = document.querySelector(`.selectable-card[data-group="vehicleType"][data-value="any"]`);
+            if (anyCard) anyCard.classList.remove("selected");
+            state.formData.vehicleTypes = state.formData.vehicleTypes.filter(t => t !== "any");
+
+            card.classList.toggle("selected");
+            if (card.classList.contains("selected")) {
+              if (!state.formData.vehicleTypes.includes(value)) state.formData.vehicleTypes.push(value);
+            } else {
+              state.formData.vehicleTypes = state.formData.vehicleTypes.filter(t => t !== value);
+            }
+
+            if (state.formData.vehicleTypes.length === 0) {
+              state.formData.vehicleTypes = ["any"];
+              if (anyCard) anyCard.classList.add("selected");
+            }
+          }
+          state.formData.vehicleType = state.formData.vehicleTypes.join(", ");
+          updateCountBadge("typeCountBadge", state.formData.vehicleTypes);
+          return;
+        }
+
+        if (group === "brand") {
+          // Multi-select for brand preference with "any" toggling
+          if (value === "any") {
+            document.querySelectorAll(`.selectable-card[data-group="brand"]`).forEach(c => c.classList.remove("selected"));
+            card.classList.add("selected");
+            state.formData.brands = ["any"];
+          } else {
+            const anyCard = document.querySelector(`.selectable-card[data-group="brand"][data-value="any"]`);
+            if (anyCard) anyCard.classList.remove("selected");
+            state.formData.brands = state.formData.brands.filter(b => b !== "any");
+
+            card.classList.toggle("selected");
+            if (card.classList.contains("selected")) {
+              if (!state.formData.brands.includes(value)) state.formData.brands.push(value);
+            } else {
+              state.formData.brands = state.formData.brands.filter(b => b !== value);
+            }
+
+            if (state.formData.brands.length === 0) {
+              state.formData.brands = ["any"];
+              if (anyCard) anyCard.classList.add("selected");
+            }
+          }
+          state.formData.brand = state.formData.brands.join(", ");
+          updateCountBadge("brandCountBadge", state.formData.brands);
+          return;
+        }
+
+        if (group === "purpose") {
+          // Multi-select for purpose / intended lifestyle
           card.classList.toggle("selected");
           const isSelected = card.classList.contains("selected");
 
@@ -323,7 +388,6 @@ document.addEventListener("DOMContentLoaded", () => {
               state.formData.purposes.push(value);
             }
           } else {
-            // Keep at least 1 purpose selected
             if (state.formData.purposes.length > 1) {
               state.formData.purposes = state.formData.purposes.filter(p => p !== value);
             } else {
@@ -332,26 +396,72 @@ document.addEventListener("DOMContentLoaded", () => {
           }
 
           state.formData.purpose = state.formData.purposes.join(", ");
+          updateCountBadge("purposeCountBadge", state.formData.purposes);
+          return;
+        }
 
-          // Update purpose count badge
-          const purposeBadges = document.querySelectorAll("#purposeCountBadge");
-          purposeBadges.forEach(badge => {
-            const count = state.formData.purposes.length;
-            badge.textContent = `${count} Selected`;
-          });
-        } else {
-          // Single select per group
-          document.querySelectorAll(`.selectable-card[data-group="${group}"]`).forEach(c => c.classList.remove("selected"));
-          card.classList.add("selected");
-          state.formData[group] = value;
+        if (group === "transmission") {
+          // Multi-select for transmission with "any" toggling
+          if (value === "any") {
+            document.querySelectorAll(`.selectable-card[data-group="transmission"]`).forEach(c => c.classList.remove("selected"));
+            card.classList.add("selected");
+            state.formData.transmissions = ["any"];
+          } else {
+            const anyCard = document.querySelector(`.selectable-card[data-group="transmission"][data-value="any"]`);
+            if (anyCard) anyCard.classList.remove("selected");
+            state.formData.transmissions = state.formData.transmissions.filter(t => t !== "any");
 
-          // Toggle custom budget visibility
-          if (group === "budgetPreset") {
-            const customBudgetBox = document.getElementById("customBudgetBox");
-            if (customBudgetBox) {
-              customBudgetBox.style.display = (value === "custom") ? "grid" : "none";
+            card.classList.toggle("selected");
+            if (card.classList.contains("selected")) {
+              if (!state.formData.transmissions.includes(value)) state.formData.transmissions.push(value);
+            } else {
+              state.formData.transmissions = state.formData.transmissions.filter(t => t !== value);
+            }
+
+            if (state.formData.transmissions.length === 0) {
+              state.formData.transmissions = ["any"];
+              if (anyCard) anyCard.classList.add("selected");
             }
           }
+          state.formData.transmission = state.formData.transmissions.join(", ");
+          return;
+        }
+
+        if (group === "fuel") {
+          // Multi-select for fuel type with "any" toggling
+          if (value === "any") {
+            document.querySelectorAll(`.selectable-card[data-group="fuel"]`).forEach(c => c.classList.remove("selected"));
+            card.classList.add("selected");
+            state.formData.fuels = ["any"];
+          } else {
+            const anyCard = document.querySelector(`.selectable-card[data-group="fuel"][data-value="any"]`);
+            if (anyCard) anyCard.classList.remove("selected");
+            state.formData.fuels = state.formData.fuels.filter(f => f !== "any");
+
+            card.classList.toggle("selected");
+            if (card.classList.contains("selected")) {
+              if (!state.formData.fuels.includes(value)) state.formData.fuels.push(value);
+            } else {
+              state.formData.fuels = state.formData.fuels.filter(f => f !== value);
+            }
+
+            if (state.formData.fuels.length === 0) {
+              state.formData.fuels = ["any"];
+              if (anyCard) anyCard.classList.add("selected");
+            }
+          }
+          state.formData.fuel = state.formData.fuels.join(", ");
+          return;
+        }
+
+        if (group === "features") {
+          card.classList.toggle("selected");
+          if (card.classList.contains("selected")) {
+            if (!state.formData.features.includes(value)) state.formData.features.push(value);
+          } else {
+            state.formData.features = state.formData.features.filter(f => f !== value);
+          }
+          return;
         }
       });
     });
@@ -473,10 +583,15 @@ document.addEventListener("DOMContentLoaded", () => {
         minBudget: results.profile.budgetRange.min,
         maxBudget: results.profile.budgetRange.max,
         vehicleType: state.formData.vehicleType,
+        vehicleTypes: state.formData.vehicleTypes,
         brand: state.formData.brand,
+        brands: state.formData.brands,
         purpose: state.formData.purpose,
         purposes: state.formData.purposes,
         transmission: state.formData.transmission,
+        transmissions: state.formData.transmissions,
+        fuel: state.formData.fuel,
+        fuels: state.formData.fuels,
         location: state.formData.location,
         iteration: state.liveSearchIteration
       };
@@ -699,10 +814,15 @@ document.addEventListener("DOMContentLoaded", () => {
             minBudget: state.lastResults ? state.lastResults.profile.budgetRange.min : 0,
             maxBudget: state.lastResults ? state.lastResults.profile.budgetRange.max : 300000000,
             vehicleType: state.formData.vehicleType,
+            vehicleTypes: state.formData.vehicleTypes,
             brand: state.formData.brand,
+            brands: state.formData.brands,
             purpose: state.formData.purpose,
             purposes: state.formData.purposes,
             transmission: state.formData.transmission,
+            transmissions: state.formData.transmissions,
+            fuel: state.formData.fuel,
+            fuels: state.formData.fuels,
             location: state.formData.location,
             iteration: state.liveSearchIteration
           };
