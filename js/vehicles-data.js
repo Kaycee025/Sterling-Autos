@@ -32,11 +32,11 @@ const VEHICLES_DATA = [
     groundClearance: "235 mm",
     featured: true,
     tags: ["Luxury", "Long-distance travel", "Prestige", "Executive"],
-    image: "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/toyota-lc300.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1563720223185-11003d516935?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/toyota-lc300.jpg",
+      "assets/images/cars/toyota-lc300-2.jpg",
+      "assets/images/cars/toyota-lc300-3.jpg"
     ],
     features: [
       "JBL 14-Speaker Synthesis Audio System",
@@ -73,11 +73,11 @@ const VEHICLES_DATA = [
     groundClearance: "208 mm",
     featured: true,
     tags: ["Family", "Daily driving", "Comfort", "Prestige"],
-    image: "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/lexus-rx350.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/lexus-rx350.jpg",
+      "assets/images/cars/lexus-rx350-2.jpg",
+      "assets/images/cars/lexus-rx350-3.jpg"
     ],
     features: [
       "Mark Levinson 15-Speaker Premium Surround Sound",
@@ -114,11 +114,11 @@ const VEHICLES_DATA = [
     groundClearance: "205 mm",
     featured: true,
     tags: ["Executive", "Luxury", "Family", "Technology"],
-    image: "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/mercedes-gle450.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/mercedes-gle450.jpg",
+      "assets/images/cars/mercedes-gle450-2.jpg",
+      "assets/images/cars/mercedes-gle450-3.jpg"
     ],
     features: [
       "MBUX Dual 12.3-Inch Widescreen Displays with Voice Assistant",
@@ -155,10 +155,11 @@ const VEHICLES_DATA = [
     groundClearance: "220 mm",
     featured: true,
     tags: ["Family", "Long-distance travel", "Low maintenance", "Durability"],
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/toyota-prado.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/toyota-prado.jpg",
+      "assets/images/cars/toyota-prado-2.jpg",
+      "assets/images/cars/toyota-prado-3.jpg"
     ],
     features: [
       "Kinetic Dynamic Suspension System (KDSS)",
@@ -195,10 +196,11 @@ const VEHICLES_DATA = [
     groundClearance: "213 mm",
     featured: true,
     tags: ["Luxury", "Prestige", "Performance", "Executive"],
-    image: "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/range-rover-sport.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/range-rover-sport.jpg",
+      "assets/images/cars/range-rover-sport-2.jpg",
+      "assets/images/cars/range-rover-sport-3.jpg"
     ],
     features: [
       "Touch Pro Duo Dual Touchscreen Glass Cockpit",
@@ -235,10 +237,11 @@ const VEHICLES_DATA = [
     groundClearance: "214 mm",
     featured: true,
     tags: ["Performance", "Luxury", "Daily driving", "Technology"],
-    image: "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/bmw-x5.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/bmw-x5.jpg",
+      "assets/images/cars/bmw-x5-2.jpg",
+      "assets/images/cars/bmw-x5-3.jpg"
     ],
     features: [
       "BMW Live Cockpit Professional with iDrive 7.0",
@@ -275,10 +278,11 @@ const VEHICLES_DATA = [
     groundClearance: "155 mm",
     featured: true,
     tags: ["Daily driving", "Family", "Low maintenance", "First car"],
-    image: "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/toyota-camry.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/toyota-camry.jpg",
+      "assets/images/cars/toyota-camry-2.jpg",
+      "assets/images/cars/toyota-camry-3.jpg"
     ],
     features: [
       "301 hp 3.5L V6 Engine with Dual Exhaust Quad Tips",
@@ -315,10 +319,10 @@ const VEHICLES_DATA = [
     groundClearance: "140 mm",
     featured: false,
     tags: ["Daily driving", "Business", "Prestige", "First car"],
-    image: "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/mercedes-c300.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1617814076367-b759c7d7e738?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/mercedes-c300.jpg",
+      "assets/images/cars/mercedes-c300-2.jpg"
     ],
     features: [
       "AMG Styling Package with Diamond Grille",
@@ -355,10 +359,11 @@ const VEHICLES_DATA = [
     groundClearance: "144 mm",
     featured: false,
     tags: ["Business", "Executive", "Daily driving", "Performance"],
-    image: "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/bmw-530i.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1580273916550-e323be2ae537?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1555215695-3004980ad54e?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/bmw-530i.jpg",
+      "assets/images/cars/bmw-530i-2.jpg",
+      "assets/images/cars/bmw-530i-3.jpg"
     ],
     features: [
       "M Aerodynamics Package & Shadowline High-Gloss Trim",
@@ -395,10 +400,11 @@ const VEHICLES_DATA = [
     groundClearance: "150 mm",
     featured: false,
     tags: ["Daily driving", "Executive", "Comfort", "Low maintenance"],
-    image: "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/lexus-es350.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1502877338535-766e1452684a?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/lexus-es350.jpg",
+      "assets/images/cars/lexus-es350-2.jpg",
+      "assets/images/cars/lexus-es350-3.jpg"
     ],
     features: [
       "Lateral Performance Dampers for Ultimate Ride Comfort",
@@ -435,10 +441,11 @@ const VEHICLES_DATA = [
     groundClearance: "210 mm",
     featured: true,
     tags: ["Performance", "Luxury", "Prestige"],
-    image: "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/porsche-cayenne.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1606016159991-dfe4f2746ad5?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/porsche-cayenne.jpg",
+      "assets/images/cars/porsche-cayenne-2.jpg",
+      "assets/images/cars/porsche-cayenne-3.jpg"
     ],
     features: [
       "Sport Chrono Package with Mode Switch on Steering Wheel",
@@ -475,10 +482,10 @@ const VEHICLES_DATA = [
     groundClearance: "286 mm",
     featured: false,
     tags: ["Long-distance travel", "Business", "Durability", "Ground clearance"],
-    image: "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/toyota-hilux.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1533473359331-0135ef1b58bf?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1594502184342-2e12f877aa73?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/toyota-hilux.jpg",
+      "assets/images/cars/toyota-hilux-2.jpg"
     ],
     features: [
       "Heavy-Duty Off-Road Suspension with Upgraded Leaf Springs",
@@ -515,10 +522,11 @@ const VEHICLES_DATA = [
     groundClearance: "145 mm",
     featured: false,
     tags: ["Daily driving", "Low maintenance", "Budget", "First car"],
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/toyota-corolla.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1621007947382-bb3c3994e3fb?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/toyota-corolla.jpg",
+      "assets/images/cars/toyota-corolla-2.jpg",
+      "assets/images/cars/toyota-corolla-3.jpg"
     ],
     features: [
       "Outstanding 30 MPG City / 38 MPG Highway Efficiency",
@@ -555,10 +563,11 @@ const VEHICLES_DATA = [
     groundClearance: "241 mm",
     featured: true,
     tags: ["Prestige", "Luxury", "Performance", "Executive"],
-    image: "https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/mercedes-g63.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1520031441872-265e4ff70366?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1618843479313-40f8afb4b4d8?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/mercedes-g63.jpg",
+      "assets/images/cars/mercedes-g63-2.jpg",
+      "assets/images/cars/mercedes-g63-3.jpg"
     ],
     features: [
       "AMG Side-Exit Performance Exhaust with Variable Flaps",
@@ -595,10 +604,11 @@ const VEHICLES_DATA = [
     groundClearance: "185 mm",
     featured: false,
     tags: ["Daily driving", "Family", "Luxury", "Fuel efficiency"],
-    image: "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
+    image: "assets/images/cars/lexus-nx300.jpg",
     gallery: [
-      "https://images.unsplash.com/photo-1549399542-7e3f8b79c341?auto=format&fit=crop&w=1200&q=80",
-      "https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=1200&q=80"
+      "assets/images/cars/lexus-nx300.jpg",
+      "assets/images/cars/lexus-nx300-2.jpg",
+      "assets/images/cars/lexus-nx300-3.jpg"
     ],
     features: [
       "F-Sport Tuned Sport Suspension and Lateral Performance Dampers",

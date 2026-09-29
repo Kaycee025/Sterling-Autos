@@ -59,6 +59,16 @@ assert(locations.includes("Enugu") && locations.includes("Lagos") && locations.i
 const nairaSymbolPresent = VEHICLES_DATA.every(v => v.priceFormatted.startsWith("₦"));
 assert(nairaSymbolPresent, "All vehicles use Nigerian Naira (₦) formatting");
 
+// Check authentic vehicle photography
+const allImagesExist = VEHICLES_DATA.every(v => fs.existsSync(path.join(__dirname, v.image)));
+assert(allImagesExist, "All vehicles have verified authentic photography existing locally on disk");
+
+const allGalleriesExist = VEHICLES_DATA.every(v => v.gallery.every(g => fs.existsSync(path.join(__dirname, g))));
+assert(allGalleriesExist, "All vehicle gallery images exist locally on disk");
+
+const uniqueImages = new Set(VEHICLES_DATA.map(v => v.image));
+assert(uniqueImages.size === VEHICLES_DATA.length, "Every vehicle model has distinct authentic photography (no duplicate/recycled images)");
+
 
 // --- TEST SUITE 2: CONNECTED 3-STAGE SALES PIPELINE ---
 console.log("\nTEST SUITE 2: Connected 3-Stage Sales Automation Pipeline");
