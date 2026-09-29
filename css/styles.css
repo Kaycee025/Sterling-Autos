@@ -428,41 +428,14 @@ button {
   z-index: 1;
 }
 
-.hero-slide {
-  position: absolute;
-  top: 0;
-  left: 0;
-  width: 100%;
-  height: 100%;
-  opacity: 0;
-  visibility: hidden;
-  transition: opacity 1.4s cubic-bezier(0.16, 1, 0.3, 1), visibility 1.4s ease;
-  overflow: hidden;
-}
-
-.hero-slide.active {
-  opacity: 1;
-  visibility: visible;
-}
-
 .hero-bg-image {
   width: 100%;
   height: 100%;
   object-fit: cover;
   object-position: center 35%;
-  filter: brightness(0.42) contrast(1.15);
-  animation: kenBurns 14s infinite alternate ease-in-out;
-  transform-origin: center center;
-  will-change: transform;
-}
-
-@keyframes kenBurns {
-  0% {
-    transform: scale(1.02) translate(0, 0);
-  }
-  100% {
-    transform: scale(1.10) translate(-1.5%, -1%);
-  }
+  filter: brightness(0.42) contrast(1.1);
+  transform: scale(1.02);
+  transition: transform 8s ease-out;
 }
 
 .hero-overlay {
@@ -604,79 +577,7 @@ button {
 }
 
 /* Hero Slider Nav Controls */
-.hero-slider-nav {
-  position: absolute;
-  bottom: 2.5rem;
-  right: 2.5rem;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  gap: 1.25rem;
-  background: rgba(8, 8, 9, 0.75);
-  border: 1px solid var(--border-medium);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
-  padding: 0.65rem 1.25rem;
-  border-radius: var(--radius-xs);
-}
 
-.hero-slider-counter {
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  color: var(--text-pure-white);
-  display: flex;
-  align-items: center;
-  gap: 0.35rem;
-}
-
-.hero-slider-divider {
-  color: var(--text-dim);
-}
-
-.hero-slider-bar {
-  width: 70px;
-  height: 2px;
-  background: rgba(255, 255, 255, 0.15);
-  border-radius: 1px;
-  overflow: hidden;
-  position: relative;
-}
-
-.hero-slider-progress {
-  position: absolute;
-  top: 0;
-  left: 0;
-  height: 100%;
-  width: 0%;
-  background: var(--text-pure-white);
-  transition: width 0.1s linear;
-}
-
-.hero-slider-arrows {
-  display: flex;
-  gap: 0.5rem;
-}
-
-.hero-slider-arrows button {
-  width: 26px;
-  height: 26px;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border: 1px solid var(--border-subtle);
-  border-radius: var(--radius-xs);
-  color: var(--text-muted);
-  font-size: 1.1rem;
-  line-height: 1;
-  transition: all var(--transition-fast);
-}
-
-.hero-slider-arrows button:hover {
-  color: var(--text-pure-white);
-  border-color: var(--text-pure-white);
-  background: rgba(255, 255, 255, 0.12);
-}
 
 .trust-item {
   display: flex;
