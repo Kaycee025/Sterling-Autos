@@ -1665,8 +1665,8 @@ button {
   height: 100%;
   background-size: cover;
   background-repeat: no-repeat;
-  opacity: 0.45;
-  filter: brightness(0.8) contrast(1.15);
+  opacity: 0.68;
+  filter: brightness(0.95) contrast(1.12);
   pointer-events: none;
   z-index: 1;
 }
@@ -1681,16 +1681,17 @@ button {
   height: 100%;
   background: linear-gradient(
     90deg, 
-    rgba(8, 8, 9, 0.94) 0%, 
-    rgba(8, 8, 9, 0.86) 38%, 
-    rgba(8, 8, 9, 0.45) 75%,
-    rgba(8, 8, 9, 0.65) 100%
+    rgba(8, 8, 9, 0.95) 0%, 
+    rgba(8, 8, 9, 0.82) 36%, 
+    rgba(8, 8, 9, 0.18) 70%,
+    rgba(8, 8, 9, 0.35) 100%
   ),
   linear-gradient(
     180deg, 
-    rgba(8, 8, 9, 0.75) 0%, 
-    transparent 35%, 
-    rgba(8, 8, 9, 0.85) 85%, 
+    rgba(8, 8, 9, 0.70) 0%, 
+    transparent 25%, 
+    transparent 65%,
+    rgba(8, 8, 9, 0.82) 88%, 
     var(--bg-black) 100%
   );
   pointer-events: none;
