@@ -9,7 +9,8 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Sterling Autos — Intelligent Car Sales Platform</title>
   <meta name="description" content="Find the car that fits your drive. Sterling Autos combines a curated luxury vehicle inventory in Nigeria with an intelligent sales matching consultation." />
-  <link rel="stylesheet" href="css/styles.css?v=2.6.0" />
+  <link rel="icon" type="image/jpeg" href="assets/images/favicon.jpeg" />
+  <link rel="stylesheet" href="css/styles.css?v=3.0.0" />
   <link rel="preload" as="image" href="assets/images/hero-home.jpg" fetchpriority="high" />
   <!-- Google Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
@@ -799,33 +800,35 @@
         <img src="" alt="Vehicle image" id="modalVehicleImg" />
       </div>
       <div class="modal-body-content">
-        <div style="display: flex; justify-content: space-between; align-items: flex-start; margin-bottom: 0.5rem;">
-          <div>
-            <div style="font-size: 0.75rem; text-transform: uppercase; letter-spacing: 0.1em; color: var(--text-muted);" id="modalVehicleMakeYear">Make & Year</div>
-            <h2 style="font-size: 1.85rem; font-weight: 700; color: #FFFFFF;" id="modalVehicleTitle">Vehicle Model</h2>
+        <div class="modal-vehicle-header">
+          <div class="modal-vehicle-title-col">
+            <div class="modal-vehicle-make-year" id="modalVehicleMakeYear">Make & Year</div>
+            <h2 class="modal-vehicle-title" id="modalVehicleTitle">Vehicle Model</h2>
           </div>
-          <div style="font-size: 1.75rem; font-weight: 800; color: #FFFFFF;" id="modalVehiclePrice">₦0</div>
+          <div class="modal-vehicle-price" id="modalVehiclePrice">₦0</div>
         </div>
 
-        <p style="font-size: 0.95rem; line-height: 1.7; color: #D4D4D8; margin-bottom: 1.5rem;" id="modalVehicleDescription">
+        <p class="modal-vehicle-desc" id="modalVehicleDescription">
           Vehicle description overview...
         </p>
 
-        <h4 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--metallic-silver); margin-top: 1.5rem; margin-bottom: 0.75rem;">
+        <h4 class="modal-section-title">
           Technical Specifications
         </h4>
-        <table class="modal-spec-table" id="modalSpecsTable">
-          <!-- Populated by JS -->
-        </table>
+        <div class="modal-spec-table-wrap">
+          <table class="modal-spec-table" id="modalSpecsTable">
+            <!-- Populated by JS -->
+          </table>
+        </div>
 
-        <h4 style="font-size: 0.85rem; font-weight: 700; text-transform: uppercase; letter-spacing: 0.12em; color: var(--metallic-silver); margin-top: 1.5rem; margin-bottom: 0.75rem;">
+        <h4 class="modal-section-title">
           Standard & Optional Equipment
         </h4>
-        <ul id="modalFeaturesList" style="list-style: none; padding: 0; display: grid; grid-template-columns: 1fr 1fr; gap: 0.5rem; margin-bottom: 2rem;">
+        <ul class="modal-features-grid" id="modalFeaturesList">
           <!-- Populated by JS -->
         </ul>
 
-        <div style="display: flex; gap: 1rem; border-top: 1px solid var(--border-subtle); padding-top: 1.5rem;">
+        <div class="modal-actions-group">
           <button class="btn btn-primary" id="modalBookViewingBtn">Book a Viewing</button>
           <button class="btn btn-outline close-modal-trigger">Close Window</button>
         </div>
@@ -855,7 +858,7 @@
               </select>
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1rem;">
+            <div class="booking-form-grid-2">
               <div class="form-group">
                 <label class="form-label" for="bookingName">Your Name</label>
                 <input type="text" id="bookingName" class="form-input" required placeholder="Full Name" />
@@ -871,7 +874,7 @@
               <input type="email" id="bookingEmail" class="form-input" required placeholder="Email Address" />
             </div>
 
-            <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem;">
+            <div class="booking-form-grid-2" style="margin-bottom: 1.5rem;">
               <div class="form-group">
                 <label class="form-label" for="bookingDate">Preferred Date</label>
                 <input type="date" id="bookingDate" class="form-input" required />
@@ -903,6 +906,6 @@
   <!-- Script Modules -->
   <script src="js/vehicles-data.js"></script>
   <script src="js/sales-workflow.js"></script>
-  <script src="js/app.js?v=2.6.0"></script>
+  <script src="js/app.js?v=3.0.0"></script>
 </body>
 </html>

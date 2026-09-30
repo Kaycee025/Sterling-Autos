@@ -651,9 +651,6 @@ document.addEventListener("DOMContentLoaded", () => {
         <div class="live-search-container">
           <div class="live-search-header-bar">
             <div class="live-search-title-wrap">
-              <span class="live-pulse-badge">
-                <span class="live-dot"></span> Live Internet & Market Search
-              </span>
               <div class="live-search-query-text">${lmd.searchSummary.query}</div>
               <div class="live-search-status-sub">${lmd.searchSummary.marketStatus} · Fresh options from verified auto exchanges</div>
             </div>

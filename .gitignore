@@ -1,0 +1,12 @@
+# Scratch and temporary scripts
+scratch/
+scratch_match.ps1
+check_deps.js
+
+# Dependencies
+node_modules/
+
+# Logs & Environment
+*.log
+.env
+.DS_Store

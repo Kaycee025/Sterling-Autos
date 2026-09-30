@@ -494,16 +494,16 @@ button {
   display: block;
   opacity: 0;
   transform: translateY(105%);
-  animation: heroLineRise 0.9s cubic-bezier(0.16, 1, 0.3, 1) forwards;
+  animation: heroLineRise 1.8s cubic-bezier(0.22, 1, 0.36, 1) forwards;
   will-change: transform, opacity;
 }
 
 .hero-title-line:nth-child(1) .hero-title-text {
-  animation-delay: 0.15s;
+  animation-delay: 0.25s;
 }
 
 .hero-title-line:nth-child(2) .hero-title-text {
-  animation-delay: 0.35s;
+  animation-delay: 0.55s;
 }
 
 @keyframes heroLineRise {
@@ -1547,6 +1547,7 @@ button {
   max-width: 960px;
   max-height: 90vh;
   overflow-y: auto;
+  overflow-x: hidden;
   position: relative;
   box-shadow: 0 24px 60px rgba(0, 0, 0, 0.7);
   animation: modalScale 250ms ease;
@@ -1598,10 +1599,71 @@ button {
   padding: 2.5rem;
 }
 
+/* Modal Header & Vehicle Typography */
+.modal-vehicle-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.modal-vehicle-title-col {
+  flex: 1;
+  min-width: 0;
+}
+
+.modal-vehicle-make-year {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  margin-bottom: 0.25rem;
+}
+
+.modal-vehicle-title {
+  font-size: 1.85rem;
+  font-weight: 700;
+  color: var(--text-pure-white);
+  line-height: 1.2;
+  word-break: break-word;
+}
+
+.modal-vehicle-price {
+  font-size: 1.75rem;
+  font-weight: 800;
+  color: var(--text-pure-white);
+  white-space: nowrap;
+  flex-shrink: 0;
+}
+
+.modal-vehicle-desc {
+  font-size: 0.95rem;
+  line-height: 1.7;
+  color: #D4D4D8;
+  margin-bottom: 1.5rem;
+}
+
+.modal-section-title {
+  font-size: 0.85rem;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  color: var(--metallic-silver);
+  margin-top: 1.5rem;
+  margin-bottom: 0.75rem;
+}
+
+.modal-spec-table-wrap {
+  width: 100%;
+  overflow-x: auto;
+  -webkit-overflow-scrolling: touch;
+}
+
 .modal-spec-table {
   width: 100%;
   border-collapse: collapse;
-  margin: 1.5rem 0;
+  margin: 1rem 0;
 }
 
 .modal-spec-table tr {
@@ -1622,6 +1684,36 @@ button {
   color: var(--text-pure-white);
   font-weight: 600;
   text-align: right;
+}
+
+.modal-features-grid {
+  list-style: none;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.5rem 1.25rem;
+  margin-bottom: 2rem;
+}
+
+.modal-features-grid li {
+  margin-bottom: 0.35rem;
+  font-size: 0.85rem;
+  color: #D4D4D8;
+  line-height: 1.45;
+}
+
+.modal-actions-group {
+  display: flex;
+  gap: 1rem;
+  border-top: 1px solid var(--border-subtle);
+  padding-top: 1.5rem;
+}
+
+.booking-form-grid-2 {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+  margin-bottom: 1rem;
 }
 
 /* Booking Confirmation Alert */
@@ -1767,19 +1859,7 @@ button {
 }
 
 .live-pulse-badge {
-  display: inline-flex;
-  align-items: center;
-  gap: 0.5rem;
-  background: rgba(34, 197, 94, 0.12);
-  border: 1px solid rgba(34, 197, 94, 0.35);
-  color: #4ade80;
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  padding: 0.25rem 0.65rem;
-  border-radius: 999px;
-  width: fit-content;
+  display: none !important;
 }
 
 .live-dot {
@@ -2176,12 +2256,16 @@ button {
   .hero-cta-group {
     flex-direction: column;
     align-items: stretch;
-    gap: 0.85rem;
+    gap: 0.75rem;
     width: 100%;
+    max-width: 320px;
   }
   
   .hero-cta-group .btn {
     width: 100%;
+    padding: 0.75rem 1.4rem;
+    font-size: 0.8rem;
+    letter-spacing: 0.05em;
     text-align: center;
     justify-content: center;
   }
@@ -2491,24 +2575,94 @@ button {
     gap: 2rem;
   }
 
-  /* Modals */
+  /* Modals (Tablet & Mobile Optimized) */
   .modal-overlay {
-    padding: 1rem;
+    padding: 0.75rem;
+    align-items: flex-start;
+  }
+
+  .modal-container {
+    max-height: 94vh;
+    border-radius: var(--radius-sm);
+    overflow-x: hidden;
+    width: 100%;
   }
   
   .modal-gallery-main {
-    height: 240px;
+    height: 250px;
   }
   
   .modal-body-content {
-    padding: 1.5rem 1.25rem;
+    padding: 1.25rem 1rem;
   }
   
+  .modal-vehicle-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 0.35rem;
+    margin-bottom: 0.85rem;
+  }
+
+  .modal-vehicle-title-col {
+    width: 100%;
+  }
+
+  .modal-vehicle-title {
+    font-size: 1.4rem;
+    line-height: 1.22;
+  }
+
+  .modal-vehicle-price {
+    font-size: 1.4rem;
+    white-space: normal;
+  }
+
+  .modal-vehicle-desc {
+    font-size: 0.875rem;
+    line-height: 1.6;
+    margin-bottom: 1.25rem;
+  }
+
+  .modal-spec-table td {
+    padding: 0.65rem 0;
+    font-size: 0.8rem;
+  }
+
+  .modal-spec-table td:first-child {
+    width: 45%;
+  }
+
+  .modal-spec-table td:last-child {
+    word-break: break-word;
+  }
+
+  .modal-features-grid {
+    grid-template-columns: 1fr;
+    gap: 0.4rem;
+  }
+
+  .modal-actions-group {
+    flex-direction: column;
+    gap: 0.75rem;
+  }
+
+  .modal-actions-group .btn {
+    width: 100%;
+    justify-content: center;
+  }
+
+  .booking-form-grid-2 {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+
   .modal-close-btn {
-    top: 0.75rem;
-    right: 0.75rem;
+    top: 0.6rem;
+    right: 0.6rem;
     width: 32px;
     height: 32px;
+    background: rgba(0, 0, 0, 0.7);
+    border: 1px solid rgba(255, 255, 255, 0.25);
   }
 }
 
@@ -2530,6 +2684,18 @@ button {
     font-size: 0.875rem;
     line-height: 1.5;
     margin-bottom: 1.35rem;
+  }
+  
+  .hero-cta-group {
+    gap: 0.65rem;
+    max-width: 280px;
+    width: 100%;
+  }
+
+  .hero-cta-group .btn {
+    padding: 0.68rem 1.25rem;
+    font-size: 0.78rem;
+    letter-spacing: 0.04em;
   }
   
   /* Compact Mobile Page Hero (Balanced proportion, doesn't fill screen) */
@@ -2603,5 +2769,69 @@ button {
   
   .live-card-price {
     font-size: 1.2rem;
+  }
+
+  /* Modals (Compact Mobile <= 480px) */
+  .modal-overlay {
+    padding: 0.35rem;
+  }
+
+  .modal-container {
+    max-height: 96vh;
+    border-radius: 4px;
+    width: 100%;
+  }
+
+  .modal-gallery-main {
+    height: 195px;
+  }
+
+  .modal-body-content {
+    padding: 1rem 0.85rem;
+  }
+
+  .modal-vehicle-make-year {
+    font-size: 0.7rem;
+    letter-spacing: 0.08em;
+  }
+
+  .modal-vehicle-title {
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+
+  .modal-vehicle-price {
+    font-size: 1.3rem;
+  }
+
+  .modal-vehicle-desc {
+    font-size: 0.825rem;
+    line-height: 1.55;
+    margin-bottom: 1rem;
+  }
+
+  .modal-spec-table td {
+    padding: 0.55rem 0;
+    font-size: 0.75rem;
+  }
+
+  .modal-spec-table td:first-child {
+    width: 48%;
+  }
+
+  .modal-spec-table td:last-child {
+    font-size: 0.75rem;
+  }
+
+  .modal-features-grid li {
+    font-size: 0.78rem;
+  }
+
+  .modal-close-btn {
+    top: 0.45rem;
+    right: 0.45rem;
+    width: 28px;
+    height: 28px;
+    font-size: 0.95rem;
   }
 }

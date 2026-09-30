@@ -96,6 +96,111 @@ const LIVE_MARKET_POOL = [
     locationFit: ["Lagos", "Abuja", "Enugu", "Owerri"],
     description: "Exceptional urban commuter and weekend getaway crossover with high ground clearance, standard Toyota Safety Sense 2.0, and class-topping fuel thriftiness."
   },
+  {
+    id: "live-prado-tx-2020",
+    make: "Toyota",
+    model: "Land Cruiser Prado TX-L 2.7",
+    year: 2020,
+    bodyType: "SUV",
+    priceMin: 38000000,
+    priceMax: 46000000,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    engine: "2.7L Dual VVT-i 4-Cylinder",
+    power: "164 hp",
+    seating: 7,
+    groundClearance: "220 mm",
+    tags: ["Family", "Long-distance travel", "Durability", "Daily driving"],
+    image: "assets/images/cars/toyota-prado-3.jpg",
+    sourcePlatform: "Live Lagos Auto Feed · Berger & Ikeja",
+    sourceBadge: "Direct Port Cleared",
+    locationFit: ["Port Harcourt", "Enugu", "Lagos", "Abuja", "Owerri"],
+    description: "Robust 7-seater executive 4x4 built for rugged Nigerian highways. Proven low-stress engine with full-time 4WD and rear cooler box."
+  },
+  {
+    id: "live-fortuner-2021",
+    make: "Toyota",
+    model: "Fortuner 2.8 4WD Automatic",
+    year: 2021,
+    bodyType: "SUV",
+    priceMin: 31000000,
+    priceMax: 38000000,
+    transmission: "Automatic",
+    fuel: "Diesel",
+    engine: "2.8L D-4D Turbocharged Diesel",
+    power: "201 hp / 500 Nm",
+    seating: 7,
+    groundClearance: "225 mm",
+    tags: ["Family", "Daily driving", "Long-distance travel", "Low maintenance"],
+    image: "assets/images/cars/toyota-hilux-2.jpg",
+    sourcePlatform: "Port Harcourt & Delta Dealer Network",
+    sourceBadge: "First Grade Foreign Used",
+    locationFit: ["Port Harcourt", "Enugu", "Lagos", "Abuja"],
+    description: "Renowned ladder-frame durability with muscular torque, 7 full seats, high wading depth, and exceptional fuel autonomy for South-South and Eastern journeys."
+  },
+  {
+    id: "live-venza-2021",
+    make: "Toyota",
+    model: "Venza Limited AWD",
+    year: 2021,
+    bodyType: "Crossover",
+    priceMin: 26000000,
+    priceMax: 31000000,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    engine: "2.5L Dynamic Force Hybrid / AWD",
+    power: "219 hp",
+    seating: 5,
+    groundClearance: "195 mm",
+    tags: ["Daily driving", "Luxury", "Fuel efficiency", "Family"],
+    image: "assets/images/cars/toyota-prado-2.jpg",
+    sourcePlatform: "Live Port Cleared Registry",
+    sourceBadge: "Foreign Used · Low Mileage",
+    locationFit: ["Lagos", "Abuja", "Port Harcourt", "Enugu"],
+    description: "Sleek executive styling with panoramic Star Gaze roof, premium JBL audio, and serene urban road manners."
+  },
+  {
+    id: "live-camry-2021",
+    make: "Toyota",
+    model: "Camry XSE V6 Sport",
+    year: 2021,
+    bodyType: "Sedan",
+    priceMin: 22000000,
+    priceMax: 27000000,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    engine: "3.5L DOHC 24-Valve V6",
+    power: "301 hp",
+    seating: 5,
+    groundClearance: "155 mm",
+    tags: ["Daily driving", "Executive", "Low maintenance", "Fuel efficiency"],
+    image: "assets/images/cars/toyota-camry.jpg",
+    sourcePlatform: "Live Verified Auto Exchange",
+    sourceBadge: "Clean Title · Customs Paid",
+    locationFit: ["Port Harcourt", "Lagos", "Abuja", "Enugu"],
+    description: "Nigeria's most dependable luxury daily commuter. 301 horsepower responsiveness with red leather cockpit styling and unmatched parts accessibility."
+  },
+  {
+    id: "live-lc300-2023",
+    make: "Toyota",
+    model: "Land Cruiser 300 VXR Bi-Turbo",
+    year: 2023,
+    bodyType: "SUV",
+    priceMin: 140000000,
+    priceMax: 160000000,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    engine: "3.5L Twin-Turbo V6",
+    power: "409 hp",
+    seating: 7,
+    groundClearance: "235 mm",
+    tags: ["Prestige", "Luxury", "Executive", "Long-distance travel"],
+    image: "assets/images/cars/toyota-lc300.jpg",
+    sourcePlatform: "Abuja Diplomatic & Port Clearing Network",
+    sourceBadge: "Brand New / Low Mileage Import",
+    locationFit: ["Abuja", "Lagos", "Port Harcourt", "Enugu"],
+    description: "The premier status vehicle on Nigerian soil. Supreme road presence, multi-terrain monitor, and whisper-quiet VIP rear cabin."
+  },
 
   // --- LEXUS ---
   {
@@ -357,6 +462,94 @@ const LIVE_MARKET_POOL = [
     sourceBadge: "First Grade Foreign Used",
     locationFit: ["Lagos", "Abuja", "Enugu", "Port Harcourt"],
     description: "Executive-grade 7-seater with quilted Nappa leather, dual sunroofs, 12.3-inch digital cockpit, and Harman Kardon 12-speaker acoustic surround sound."
+  },
+
+  // --- PORSCHE ---
+  {
+    id: "live-cayenne-2020",
+    make: "Porsche",
+    model: "Cayenne S 2.9L Bi-Turbo",
+    year: 2020,
+    bodyType: "SUV",
+    priceMin: 52000000,
+    priceMax: 65000000,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    engine: "2.9L Twin-Turbo V6",
+    power: "434 hp",
+    seating: 5,
+    groundClearance: "210 mm",
+    tags: ["Performance", "Prestige", "Luxury", "Daily driving"],
+    image: "assets/images/cars/porsche-cayenne.jpg",
+    sourcePlatform: "Live European Performance Registry",
+    sourceBadge: "Foreign Used · Full Porsche History",
+    locationFit: ["Lagos", "Abuja", "Port Harcourt"],
+    description: "Motorsport DNA wrapped in an agile luxury SUV. 434-hp twin-turbo thrust, Porsche Active Suspension Management, and iconic Stuttgart pedigree."
+  },
+  {
+    id: "live-macan-2021",
+    make: "Porsche",
+    model: "Macan GTS AWD",
+    year: 2021,
+    bodyType: "SUV",
+    priceMin: 38000000,
+    priceMax: 46000000,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    engine: "2.9L Twin-Turbo V6",
+    power: "375 hp",
+    seating: 5,
+    groundClearance: "190 mm",
+    tags: ["Performance", "Daily driving", "Luxury"],
+    image: "assets/images/cars/porsche-cayenne-2.jpg",
+    sourcePlatform: "Live Verified Performance Exchange",
+    sourceBadge: "Accident Free · Low Mileage",
+    locationFit: ["Lagos", "Abuja", "Port Harcourt"],
+    description: "Sports car handling in a compact luxury crossover. Rapid PDK gear shifts, sports exhaust note, and sharp turn-in on asphalt."
+  },
+
+  // --- MORE EXECUTIVE OPTIONS ---
+  {
+    id: "live-c300-2021",
+    make: "Mercedes-Benz",
+    model: "C300 4MATIC AMG Line",
+    year: 2021,
+    bodyType: "Sedan",
+    priceMin: 27000000,
+    priceMax: 33000000,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    engine: "2.0L Turbo Inline-4",
+    power: "255 hp",
+    seating: 5,
+    groundClearance: "140 mm",
+    tags: ["Daily driving", "Executive", "Prestige", "First car"],
+    image: "assets/images/cars/mercedes-c300.jpg",
+    sourcePlatform: "Live European Fleet Exchange",
+    sourceBadge: "Foreign Used · Spotless",
+    locationFit: ["Lagos", "Abuja", "Port Harcourt", "Enugu"],
+    description: "Aggressive AMG sports styling with diamond grille, digital cockpit, and lively 4MATIC traction for executive commutes."
+  },
+  {
+    id: "live-es350-2021",
+    make: "Lexus",
+    model: "ES 350 Luxury",
+    year: 2021,
+    bodyType: "Sedan",
+    priceMin: 28000000,
+    priceMax: 34000000,
+    transmission: "Automatic",
+    fuel: "Petrol",
+    engine: "3.5L V6 DOHC",
+    power: "302 hp",
+    seating: 5,
+    groundClearance: "150 mm",
+    tags: ["Daily driving", "Executive", "Comfort", "Prestige"],
+    image: "assets/images/cars/lexus-es350.jpg",
+    sourcePlatform: "Live Nigerian Dealer Network",
+    sourceBadge: "Foreign Used · Clean Title",
+    locationFit: ["Lagos", "Abuja", "Enugu", "Port Harcourt", "Onitsha"],
+    description: "Unrivaled executive sedan serenity with linear wood trim, Mark Levinson acoustic sound, and effortless maintenance across Nigeria."
   }
 ];
 
@@ -426,43 +619,82 @@ function performLiveMarketSearch(params) {
     chosenTransmissions = ["any"];
   }
 
-  // Filter pool based on user's criteria with smart tolerance
+  const hasBrandFilter = !chosenBrands.includes('any') && chosenBrands.length > 0;
+  const hasTypeFilter = !chosenVehicleTypes.includes('any') && chosenVehicleTypes.length > 0;
+  const hasTransFilter = !chosenTransmissions.includes('any') && chosenTransmissions.length > 0;
+
+  function matchesBrand(car) {
+    if (!hasBrandFilter) return true;
+    return chosenBrands.some(b => b.toLowerCase() === car.make.toLowerCase());
+  }
+
+  function matchesType(car, strict = false) {
+    if (!hasTypeFilter) return true;
+    const lowerCarType = car.bodyType.toLowerCase();
+    for (const vt of chosenVehicleTypes) {
+      const lowerVt = vt.toLowerCase();
+      if (lowerVt === lowerCarType) return true;
+      if (!strict) {
+        // SUV and Crossover compatibility in Nigerian vehicle market
+        if ((lowerVt === 'suv' && lowerCarType === 'crossover') ||
+            (lowerVt === 'crossover' && lowerCarType === 'suv')) {
+          return true;
+        }
+      }
+    }
+    return false;
+  }
+
+  function matchesTransmission(car) {
+    if (!hasTransFilter) return true;
+    return chosenTransmissions.some(t => t.toLowerCase() === car.transmission.toLowerCase());
+  }
+
+  // Tier 1: Strict match on Brand, Body Type, Transmission, and Budget bounds
   let candidates = LIVE_MARKET_POOL.filter(car => {
-    // Budget check
-    if (minBudget > 0 && car.priceMax < minBudget * 0.85) return false;
-    if (maxBudget < 250000000 && car.priceMin > maxBudget * 1.25) return false;
+    if (!matchesBrand(car)) return false;
+    if (!matchesType(car, false)) return false;
+    if (!matchesTransmission(car)) return false;
 
-    // Body type check (supports multi-selection)
-    if (!chosenVehicleTypes.includes('any') && !chosenVehicleTypes.some(vt => vt.toLowerCase() === car.bodyType.toLowerCase())) {
-      return false;
-    }
-
-    // Brand check (supports multi-selection)
-    if (!chosenBrands.includes('any') && !chosenBrands.some(b => b.toLowerCase() === car.make.toLowerCase())) {
-      return false;
-    }
-
-    // Transmission check (supports multi-selection)
-    if (!chosenTransmissions.includes('any') && !chosenTransmissions.some(t => t.toLowerCase() === car.transmission.toLowerCase())) {
-      return false;
-    }
+    // Budget check with reasonable tolerance
+    if (minBudget > 0 && car.priceMax < minBudget * 0.8) return false;
+    if (maxBudget < 250000000 && car.priceMin > maxBudget * 1.35) return false;
 
     return true;
   });
 
-  // If strict filtering returned too few candidates, widen criteria gracefully
-  if (candidates.length < 3) {
-    const fallbackCandidates = LIVE_MARKET_POOL.filter(car => {
-      const budgetOk = car.priceMin <= (maxBudget * 1.35);
-      const typeOk = (vehicleType === 'any' || car.bodyType.toLowerCase() === vehicleType.toLowerCase());
-      return budgetOk && typeOk;
-    });
-    candidates = [...new Set([...candidates, ...fallbackCandidates])];
-  }
+  // Tier 2: If too few candidates, widen criteria WITHOUT EVER violating brand preference
+  if (candidates.length < 4) {
+    if (hasBrandFilter) {
+      // 2a. Widen budget tolerance within the selected brand(s) only
+      const brandCarsWiderBudget = LIVE_MARKET_POOL.filter(car => {
+        if (!matchesBrand(car)) return false;
+        if (!matchesType(car, false)) return false;
+        return !candidates.some(c => c.id === car.id);
+      });
+      candidates = [...candidates, ...brandCarsWiderBudget];
 
-  // If still low, include all top market cars
-  if (candidates.length === 0) {
-    candidates = [...LIVE_MARKET_POOL];
+      // 2b. If still under 4, include all available models of the chosen brand(s)
+      if (candidates.length < 4) {
+        const allBrandCars = LIVE_MARKET_POOL.filter(car => {
+          if (!matchesBrand(car)) return false;
+          return !candidates.some(c => c.id === car.id);
+        });
+        candidates = [...candidates, ...allBrandCars];
+      }
+    } else {
+      // User selected "Any Brand": widen budget and related types across pool
+      const fallbackCandidates = LIVE_MARKET_POOL.filter(car => {
+        const budgetOk = car.priceMin <= (maxBudget * 1.4);
+        const typeOk = matchesType(car, false);
+        return budgetOk && typeOk && !candidates.some(c => c.id === car.id);
+      });
+      candidates = [...candidates, ...fallbackCandidates];
+
+      if (candidates.length === 0) {
+        candidates = [...LIVE_MARKET_POOL];
+      }
+    }
   }
 
   // Dynamic non-repeating shuffle based on iteration seed + purpose relevance
@@ -533,8 +765,14 @@ function performLiveMarketSearch(params) {
   });
 
   // Construct comprehensive search telemetry
+  const brandDisplay = (!chosenBrands.includes('any') && chosenBrands.length > 0)
+    ? chosenBrands.join(', ')
+    : (brand !== 'any' ? brand : '');
+  const typeDisplay = (!chosenVehicleTypes.includes('any') && chosenVehicleTypes.length > 0)
+    ? chosenVehicleTypes.join(', ')
+    : (vehicleType !== 'any' ? vehicleType : 'Vehicles');
   const purposeTagLine = chosenPurposes.length > 0 ? `for ${chosenPurposes.map(p => p.replace(/-/g, ' ')).join(' + ')}` : '';
-  const searchQuerySummary = `${brand !== 'any' ? brand : ''} ${vehicleType !== 'any' ? vehicleType : 'Vehicles'} ${purposeTagLine} in ${location} (${formatNaira(minBudget)} – ${formatNaira(maxBudget)})`.replace(/\s+/g, ' ').trim();
+  const searchQuerySummary = `${brandDisplay} ${typeDisplay} ${purposeTagLine} in ${location} (${formatNaira(minBudget)} – ${formatNaira(maxBudget)})`.replace(/\s+/g, ' ').trim();
   const overallGoogleQuery = encodeURIComponent(`${searchQuerySummary} foreign used price Nigeria site:jiji.ng OR site:cars45.com`);
 
   return {
